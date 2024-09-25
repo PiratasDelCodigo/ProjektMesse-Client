@@ -87,7 +87,32 @@ namespace Messe_Client
             var frame = (BitmapImage)webcamPreview.Source;
             if (frame != null)
             {
-                SaveImage(frame);
+                ConvertImageToBase64(frame);
+            }
+        }
+
+        private string ConvertImageToBase64(BitmapImage image)
+        {
+            // Create a BitmapEncoder to encode the image to memory
+            var encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(image));
+
+            using (var memoryStream = new MemoryStream())
+            {
+                // Save the encoded image data to the memory stream
+                encoder.Save(memoryStream);
+
+                // Convert the memory stream to a byte array
+                byte[] imageBytes = memoryStream.ToArray();
+
+                // Convert the byte array to a Base64 string
+                string base64String = Convert.ToBase64String(imageBytes);
+
+                // Display or use the Base64 string as needed
+                MessageBox.Show("Image converted to Base64 successfully!");
+                Clipboard.SetText(base64String);
+
+                return base64String;
             }
         }
 
