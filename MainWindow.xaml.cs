@@ -19,6 +19,8 @@ namespace Messe_Client
         public MainWindow()
         {
             InitializeComponent();
+            Window1 webcamwindow = new Window1();
+            webcamwindow.Show();
         }
     }
 }
