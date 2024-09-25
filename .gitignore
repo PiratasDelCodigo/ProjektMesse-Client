@@ -104,3 +104,10 @@ coverage/
 
 # Ignore any additional files
 # Add any additional ignore rules below this line
+obj/Debug/net8.0-windows/App.g.i.cs
+obj/Debug/net8.0-windows/MainWindow.g.i.cs
+obj/Debug/net8.0-windows/Messe_Client.AssemblyInfo.cs
+obj/Debug/net8.0-windows/Messe_Client.AssemblyInfoInputs.cache
+obj/Debug/net8.0-windows/Messe_Client.GeneratedMSBuildEditorConfig.editorconfig
+obj/Debug/net8.0-windows/Messe_Client_MarkupCompile.i.cache
+obj/Debug/net8.0-windows/Messe_Client_MarkupCompile.i.lref
