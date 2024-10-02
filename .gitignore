@@ -8,9 +8,11 @@
 
 # Ignore build results
 bin/
-obj/
-obj/**
-obj/Debug
+# obj/
+# obj/**
+obj/Debug/
+obj/Debug/**
+obj/project.nuget.cache
 debug/
 release/
 *.exe

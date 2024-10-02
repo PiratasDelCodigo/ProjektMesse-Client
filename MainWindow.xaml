@@ -30,8 +30,10 @@
                     <TextBox HorizontalAlignment="Left" Margin="121,269,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="310" x:Name="tbCAddress"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="TabItem">
-                <Grid Background="#FFE5E5E5"/>
+            <TabItem Header="TabItem" Height="22" Margin="-2,0,-2,0" VerticalAlignment="Top" ContextMenuOpening="TabItem_ContextMenuOpening">
+                <Grid Background="#FFE5E5E5">
+                    
+                </Grid>
             </TabItem>
         </TabControl>
 
