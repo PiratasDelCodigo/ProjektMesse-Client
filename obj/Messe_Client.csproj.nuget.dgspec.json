@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\otpro\\Documents\\berufsschule\\SAE\\Projekt_Messe\\Messe_Client\\Messe_Client.csproj": {}
+    "C:\\Users\\masam\\source\\repos\\PiratasDelCodigo\\ProjektMesse-Client\\Messe_Client.csproj": {}
   },
   "projects": {
-    "C:\\Users\\otpro\\Documents\\berufsschule\\SAE\\Projekt_Messe\\Messe_Client\\Messe_Client.csproj": {
+    "C:\\Users\\masam\\source\\repos\\PiratasDelCodigo\\ProjektMesse-Client\\Messe_Client.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\otpro\\Documents\\berufsschule\\SAE\\Projekt_Messe\\Messe_Client\\Messe_Client.csproj",
+        "projectUniqueName": "C:\\Users\\masam\\source\\repos\\PiratasDelCodigo\\ProjektMesse-Client\\Messe_Client.csproj",
         "projectName": "Messe_Client",
-        "projectPath": "C:\\Users\\otpro\\Documents\\berufsschule\\SAE\\Projekt_Messe\\Messe_Client\\Messe_Client.csproj",
-        "packagesPath": "C:\\Users\\otpro\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\otpro\\Documents\\berufsschule\\SAE\\Projekt_Messe\\Messe_Client\\obj\\",
+        "projectPath": "C:\\Users\\masam\\source\\repos\\PiratasDelCodigo\\ProjektMesse-Client\\Messe_Client.csproj",
+        "packagesPath": "C:\\Users\\masam\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\masam\\source\\repos\\PiratasDelCodigo\\ProjektMesse-Client\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\otpro\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\masam\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -39,16 +34,25 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
+          "dependencies": {
+            "AForge.Video": {
+              "target": "Package",
+              "version": "[2.2.5, )"
+            },
+            "AForge.Video.DirectShow": {
+              "target": "Package",
+              "version": "[2.2.5, )"
+            },
+            "System.Drawing.Common": {
+              "target": "Package",
+              "version": "[8.0.8, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -68,7 +72,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

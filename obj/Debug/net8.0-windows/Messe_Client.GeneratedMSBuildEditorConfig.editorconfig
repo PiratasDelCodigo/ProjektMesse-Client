@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Messe_Client
-build_property.ProjectDir = C:\Users\otpro\Documents\berufsschule\SAE\Projekt_Messe\Messe_Client\
+build_property.ProjectDir = C:\Users\masam\source\repos\PiratasDelCodigo\ProjektMesse-Client\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
