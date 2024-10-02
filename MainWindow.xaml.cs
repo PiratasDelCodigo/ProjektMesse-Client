@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -83,6 +84,11 @@ namespace Messe_Client
             lbCAddress.Visibility = Visibility.Hidden;
             tbCName.Visibility = Visibility.Hidden;
             tbCAddress.Visibility = Visibility.Hidden;
+        }
+
+        private void TabItem_ContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+            Trace.WriteLine("TabItem_ContextMenuOpening");
         }
     }
 }

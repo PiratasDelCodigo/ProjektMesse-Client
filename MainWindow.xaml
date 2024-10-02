@@ -38,6 +38,10 @@
                 </Grid>
             </TabItem>
         </TabControl>
+        <Label Content="Name" Margin="225,143,510,263"/>
+        <Label Content="Password&#xD;&#xA;" Margin="224,176,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="66" Height="28"/>
+        <TextBox TextWrapping="Wrap" Margin="290,143,290,263" FontSize="18"/>
+        <PasswordBox Margin="290,176,290,230"/>
 
     </Grid>
 </Window>
