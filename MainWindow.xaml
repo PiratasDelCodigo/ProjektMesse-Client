@@ -30,12 +30,16 @@
                     <TextBox HorizontalAlignment="Left" Margin="121,269,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="310" x:Name="tbCAddress"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="TabItem" Height="22" Margin="-2,0,-2,0" VerticalAlignment="Top" ContextMenuOpening="TabItem_ContextMenuOpening">
+            <TabItem Header="TabItem">
                 <Grid Background="#FFE5E5E5">
-                    
+                    <Label Content="Admin Login" Margin="222,78,0,0" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
         </TabControl>
+        <Label Content="Name" Margin="225,143,510,263"/>
+        <Label Content="Password&#xD;&#xA;" Margin="224,176,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="66" Height="28"/>
+        <TextBox TextWrapping="Wrap" Margin="290,143,290,263" FontSize="18"/>
+        <PasswordBox Margin="290,176,290,230"/>
 
     </Grid>
 </Window>

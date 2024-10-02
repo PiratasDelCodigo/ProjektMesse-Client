@@ -7,10 +7,10 @@
         mc:Ignorable="d"
         Title="Window2" Height="450" Width="800">
     <Grid>
-        <Canvas Margin="10,64,10,10">
-            <TextBox TextWrapping="Wrap" Text="TextBox" Width="400" Canvas.Top="-57" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50"/>
-        </Canvas>
-        <Button Content="Button" Margin="413,10,191,381"/>
+        <TextBox TextWrapping="Wrap" Width="377" Height="46" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Top" TextChanged="TextBox_TextChanged" Text="Search entry" SelectionOpacity="4" Margin="10,10,0,0"/>
+        <Button Content="Button" Margin="393,10,211,378"/>
+        <Button Content="Button" Margin="594,10,10,378"/>
+        <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,61,10,10"/>
 
     </Grid>
 </Window>
