@@ -30,8 +30,17 @@
                     <TextBox HorizontalAlignment="Left" Margin="121,269,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="310" x:Name="tbCAddress"/>
                 </Grid>
             </TabItem>
+<<<<<<< HEAD
             <TabItem x:Name="admin_TabItem" Header="TabItem" ContextMenuOpening="TabItem_ContextMenuOpening">
                 <Grid x:Name="admin_login_grid" Background="#FFE5E5E5"/>
+=======
+            <TabItem Header="TabItem">
+                <Grid Background="#FFE5E5E5">
+                    <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Height="36" Width="784"/>
+                    <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Height="36" Width="784" Margin="0,36,0,0"/>
+                    <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Height="36" Width="784" Margin="0,72,0,0"/>
+                </Grid>
+>>>>>>> 6597c55b6928f91f38a5af83a96c621182bb645d
             </TabItem>
         </TabControl>
 
