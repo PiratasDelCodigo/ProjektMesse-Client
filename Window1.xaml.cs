@@ -87,7 +87,8 @@ namespace Messe_Client
             var frame = (BitmapImage)webcamPreview.Source;
             if (frame != null)
             {
-                ConvertImageToBase64(frame);
+                ((MainWindow)Application.Current.MainWindow).SetImageFromBase64(ConvertImageToBase64(frame));
+                
             }
         }
 
