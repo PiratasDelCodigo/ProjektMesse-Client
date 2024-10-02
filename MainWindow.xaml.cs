@@ -19,7 +19,7 @@ namespace Messe_Client
     /// </summary>
     public partial class MainWindow : Window
     {
-        public loginwindow loginwindow;
+        private loginwindow login_window;
         public MainWindow()
         {
             InitializeComponent();
@@ -27,7 +27,6 @@ namespace Messe_Client
             lbCAddress.Visibility = Visibility.Hidden;
             tbCName.Visibility = Visibility.Hidden;
             tbCAddress.Visibility = Visibility.Hidden;
-
             checkHTTP();
            
         }
@@ -95,8 +94,8 @@ namespace Messe_Client
             {
                 if (selectedTab.Name == "admin_TabItem")
                 {
-                    // Tab 2 is opened
-                    MessageBox.Show("Admin panel is opened!");
+                    login_window = new loginwindow();
+                    login_window.Show();
                 }
             }
         }

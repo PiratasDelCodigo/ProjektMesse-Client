@@ -19,9 +19,43 @@ namespace Messe_Client
     /// </summary>
     public partial class loginwindow : Window
     {
+        private string name_admin = "admin";
+        private string password_admin = "admin";
         public loginwindow()
         {
             InitializeComponent();
+            
+        }
+
+        
+
+        private void loginButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(tb_name.Text == name_admin)
+            {
+                if (pwb_password.Password == password_admin)
+                {
+                    //pw and nam richtig!
+                    
+                }
+                else
+                {
+                    //Name richtig, passwort nicht
+                }
+            }
+            else
+            {
+                //name falsch, passwort wird geprüft
+                if(pwb_password.Password == password_admin)
+                {
+                    //name falsch, passwort richtig
+                }
+                else
+                {
+                    //name und passwort falsch
+                }
+
+            }
         }
     }
 }
