@@ -7,6 +7,33 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <TabControl>
+            <TabItem Header="TabItem">
+                <Grid Background="#FFE5E5E5">
+                    <Label Content="Label" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
+                    <TextBox HorizontalAlignment="Left" Margin="121,14,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="310"/>
+                    <Label Content="Label" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
+                    <TextBox HorizontalAlignment="Left" Margin="121,45,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="310"/>
+                    <Label Content="Label" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
+                    <TextBox HorizontalAlignment="Left" Margin="121,77,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="310"/>
+                    <Label Content="Label" HorizontalAlignment="Left" Margin="10,104,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
+                    <TextBox HorizontalAlignment="Left" Margin="121,108,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="310"/>
+                    <Label Content="Label" HorizontalAlignment="Left" Margin="10,137,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="121,137,0,0" VerticalAlignment="Top" Width="120"/>
+                    <CheckBox Content="Create Company" HorizontalAlignment="Left" Margin="13,188,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+                    <Image x:Name="userImage" HorizontalAlignment="Left" Height="135" Margin="633,10,0,0" VerticalAlignment="Top" Width="132" Source="/11-0-Big-Sur-Color-Night.jpg" Stretch="Fill"/>
+                    <Button Content="Take Image" HorizontalAlignment="Left" Margin="633,165,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.13,0.323" Width="133" Height="20" Click="onClickTakeImage"/>
+                    <Button Content="Submit" HorizontalAlignment="Left" Margin="633,222,0,0" VerticalAlignment="Top" Height="111" Width="133"/>
+                    <Label x:Name="lbCName" Content="C Name" HorizontalAlignment="Left" Margin="10,236,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
+                    <TextBox HorizontalAlignment="Left" Margin="121,240,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="310" x:Name="tbCName"/>
+                    <Label Content="C Address" HorizontalAlignment="Left" Margin="10,265,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365" x:Name="lbCAddress"/>
+                    <TextBox HorizontalAlignment="Left" Margin="121,269,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="310" x:Name="tbCAddress"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="TabItem">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
 
     </Grid>
 </Window>
