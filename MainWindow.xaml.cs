@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IO;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,6 +19,7 @@ namespace Messe_Client
     /// </summary>
     public partial class MainWindow : Window
     {
+        public loginwindow loginwindow;
         public MainWindow()
         {
             InitializeComponent();
@@ -25,6 +27,7 @@ namespace Messe_Client
             lbCAddress.Visibility = Visibility.Hidden;
             tbCName.Visibility = Visibility.Hidden;
             tbCAddress.Visibility = Visibility.Hidden;
+            
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
@@ -72,7 +75,8 @@ namespace Messe_Client
 
         private void TabItem_ContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
-            Trace.WriteLine("TabItem_ContextMenuOpening");
+            loginwindow = new loginwindow();
+            loginwindow.Show();
         }
     }
 }
