@@ -27,9 +27,7 @@ namespace Messe_Client
             lbCAddress.Visibility = Visibility.Hidden;
             tbCName.Visibility = Visibility.Hidden;
             tbCAddress.Visibility = Visibility.Hidden;
-<<<<<<< HEAD
-            
-=======
+
             checkHTTP();
            
         }
@@ -46,7 +44,6 @@ namespace Messe_Client
             string jsonPayload = "{\"key\": \"value\"}";
             string postResponse = await httpService.PostAsync("https://api.example.com/post", jsonPayload);
             Console.WriteLine("POST Response: " + postResponse);
->>>>>>> 6597c55b6928f91f38a5af83a96c621182bb645d
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
@@ -94,8 +91,17 @@ namespace Messe_Client
 
         private void TabItem_ContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
-            loginwindow = new loginwindow();
-            loginwindow.Show();
+            
+        }
+
+        private void admin_TabItem_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if(admin_TabItem.IsVisible)
+            {
+                loginwindow = new loginwindow();
+                loginwindow.Show();
+            }
+            
         }
     }
 }
