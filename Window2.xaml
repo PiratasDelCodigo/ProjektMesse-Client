@@ -8,9 +8,10 @@
         Title="Window2" Height="450" Width="800">
     <Grid>
         <Canvas Margin="10,64,10,10">
-            <TextBox TextWrapping="Wrap" Text="TextBox" Width="400" Canvas.Top="-57" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50"/>
+            <TextBox TextWrapping="Wrap" Width="377" Canvas.Top="-54" Height="46" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Left="1" TextChanged="TextBox_TextChanged" Text="Search entry" SelectionOpacity="4"/>
         </Canvas>
-        <Button Content="Button" Margin="413,10,191,381"/>
+        <Button Content="Button" Margin="393,10,211,378"/>
+        <Button Content="Button" Margin="594,10,10,378"/>
 
     </Grid>
 </Window>
