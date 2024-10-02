@@ -24,6 +24,22 @@ namespace Messe_Client
             lbCAddress.Visibility = Visibility.Hidden;
             tbCName.Visibility = Visibility.Hidden;
             tbCAddress.Visibility = Visibility.Hidden;
+            checkHTTP();
+           
+        }
+
+        private async void checkHTTP()
+        {
+            var httpService = new HttpService();
+
+            // GET Request
+            string getResponse = await httpService.GetAsync("https://localhost:7049/api/Company");
+            Console.WriteLine("GET Response: " + getResponse);
+
+            // POST Request
+            string jsonPayload = "{\"key\": \"value\"}";
+            string postResponse = await httpService.PostAsync("https://api.example.com/post", jsonPayload);
+            Console.WriteLine("POST Response: " + postResponse);
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
