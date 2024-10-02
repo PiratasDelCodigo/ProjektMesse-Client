@@ -89,19 +89,16 @@ namespace Messe_Client
             tbCAddress.Visibility = Visibility.Hidden;
         }
 
-        private void TabItem_ContextMenuOpening(object sender, ContextMenuEventArgs e)
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
-        }
-
-        private void admin_TabItem_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if(admin_TabItem.IsVisible)
+            if (tabControl.SelectedItem is TabItem selectedTab)
             {
-                loginwindow = new loginwindow();
-                loginwindow.Show();
+                if (selectedTab.Name == "admin_TabItem")
+                {
+                    // Tab 2 is opened
+                    MessageBox.Show("Admin panel is opened!");
+                }
             }
-            
         }
     }
 }

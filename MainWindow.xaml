@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <TabControl>
+        <TabControl SelectionChanged="TabControl_SelectionChanged" x:Name="tabControl">
             <TabItem x:Name="user_TabItem" Header="TabItem">
                 <Grid Background="#FFE5E5E5">
                     <Label Content="Label" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
@@ -30,7 +30,7 @@
                     <TextBox HorizontalAlignment="Left" Margin="121,269,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="310" x:Name="tbCAddress"/>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="admin_TabItem" Header="TabItem" ContextMenuOpening="TabItem_ContextMenuOpening" IsVisibleChanged="admin_TabItem_IsVisibleChanged">
+            <TabItem x:Name="admin_TabItem" Header="TabItem">
                 <Grid Background="#FFE5E5E5">
                     <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Height="36" Width="784"/>
                     <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Height="36" Width="784" Margin="0,36,0,0"/>
