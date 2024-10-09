@@ -8,7 +8,7 @@ namespace Messe_Client
 {
     internal class Handler
     {
-        static public bool login_window_activity_status { get; set; }
+        public bool login_window_activity_status { get; set; }
 
         public Handler()
         {
