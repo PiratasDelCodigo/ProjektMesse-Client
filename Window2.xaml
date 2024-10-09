@@ -8,7 +8,7 @@
         Title="Window2" Height="450" Width="800">
     <Grid>
         <Button Content="Edit" Margin="415,10,211,374"/>
-        <TextBox TextWrapping="Wrap" Text="TextBox" Width="400" HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Margin="10,10,0,0"/>
+        <TextBox TextWrapping="Wrap" Text="TextBox" Width="400" HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Margin="10,10,0,0" FontSize="16"/>
         <Button Content="Delete" Margin="594,10,10,374"/>
         <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,65,10,10"/>
 
