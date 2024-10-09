@@ -7,10 +7,12 @@
         mc:Ignorable="d"
         Title="Window2" Height="450" Width="800">
     <Grid>
-        <TextBox TextWrapping="Wrap" Width="377" Height="46" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Top" TextChanged="TextBox_TextChanged" Text="Search entry" SelectionOpacity="4" Margin="10,10,0,0"/>
-        <Button Content="Button" Margin="393,10,211,378"/>
-        <Button Content="Button" Margin="594,10,10,378"/>
-        <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,61,10,10"/>
+
+        <Button Content="Edit" Margin="415,10,211,374"/>
+        <TextBox TextWrapping="Wrap" Text="TextBox" Width="400" HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Margin="10,10,0,0" FontSize="16"/>
+        <Button Content="Delete" Margin="594,10,10,374"/>
+        <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,65,10,10"/>
+
 
     </Grid>
 </Window>
