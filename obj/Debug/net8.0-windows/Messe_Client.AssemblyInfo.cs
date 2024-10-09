@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Messe_Client")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+401d7f8d0da3081c7bff1479d477f09dded80456")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+97095db6240cbf80752fcf5ba330d751350ef1ba")]
 [assembly: System.Reflection.AssemblyProductAttribute("Messe_Client")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Messe_Client")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
