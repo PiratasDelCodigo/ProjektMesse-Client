@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Messe_Client.Models;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,20 @@ namespace Messe_Client
         {
             InitializeComponent();
         }
+
+        public Window2(Company[] data)
+        {
+            InitializeComponent();
+            dgData.ItemsSource = data;
+        }
+
+        public Window2(Customer[] data)
+        {
+            InitializeComponent();
+            dgData.ItemsSource = data;
+        }
+
+
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
