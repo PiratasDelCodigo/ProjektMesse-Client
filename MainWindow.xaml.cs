@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection.Metadata;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Windows;
@@ -42,12 +43,12 @@ namespace Messe_Client
             // GET Request
             string getResponse = await httpService.GetAsync("https://localhost:7049/api/Company");
             Console.WriteLine("GET Response: " + getResponse);
-            Company[] companies = JsonConvert.DeserializeObject<Company[]>(getResponse);
+            /*Company[] companies = JsonConvert.DeserializeObject<Company[]>(getResponse);
             foreach(var company in companies)
             {
                 Console.WriteLine(company.id);
                 Console.WriteLine(company.companyName);
-            }
+            }*/
 
             // POST Request
             string jsonPayload = "{\"key\": \"value\"}";
@@ -98,22 +99,47 @@ namespace Messe_Client
             tbCAddress.Visibility = Visibility.Hidden;
         }
 
+        public void logout()
+        {
+            //API integration für logout!
+        }
+
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (tabControl.SelectedItem is TabItem selectedTab)
             {
                 if (selectedTab.Name == "admin_TabItem")
                 {
-                    if (Handler.login_window_activity_status == false)
+                    //Wenn Admin Tab offen ist
+                    if(login_window.IsVisible == false)
                     {
-                        Handler.login_window_activity_status = true;
-                        login_window.Show();
+                        //Wenn Loginwindow hidden
+                        if(Handler.signed_in == false)
+                        {
+                            //Noch nicht eingeloggt, Loginwindow hidden
+                            login_window.Show();
+                            login_window.Focus();
+                            Handler.login_window_activity_status = true;
+                        }
+                        else
+                        {
+                            //Eingeloggt, Loginwindow hidden --> do nothing
+                            Console.WriteLine($"Already signed in as {Handler.username}");
+                        }
                     }
-                    else
+                    else if(login_window.IsVisible == true)
                     {
-                        Handler.login_window_activity_status = false;
-                        Console.WriteLine("Login Window is already active");
+                        //Loginwindow shown -- do nothing (expand if necessary)
                     }
+                }
+                else if(selectedTab.Name == "user_TabItem")
+                {
+                    //Wenn User Tab offen ist
+                    login_window.Hide();
+                    login_window.clearInputs();
+                    Handler.login_window_activity_status = false;
+                    logout();
+                    Handler.signed_in = false;
                 }
             }
         }
@@ -123,11 +149,11 @@ namespace Messe_Client
             var httpService = new HttpService();
 
             // GET Request
-            string getResponse = await httpService.GetAsync("https://localhost:7049/api/Company");
+           /* string getResponse = await httpService.GetAsync("https://localhost:7049/api/Company");
             Console.WriteLine("GET Response: " + getResponse);
             Company[] companies = JsonConvert.DeserializeObject<Company[]>(getResponse);
             Window2 datawindow = new Window2(companies);
-            datawindow.Show();
+            datawindow.Show();*/
         }
 
         private async void btProductGroup_Click(object sender, RoutedEventArgs e)
@@ -140,11 +166,11 @@ namespace Messe_Client
             var httpService = new HttpService();
 
             // GET Request
-            string getResponse = await httpService.GetAsync("https://localhost:7049/api/Customer");
+           /* string getResponse = await httpService.GetAsync("https://localhost:7049/api/Customer");
             Console.WriteLine("GET Response: " + getResponse);
             Customer[] customers = JsonConvert.DeserializeObject<Customer[]>(getResponse);
             Window2 datawindow = new Window2(customers);
-            datawindow.Show();
+            datawindow.Show();*/
         }
     }
 }

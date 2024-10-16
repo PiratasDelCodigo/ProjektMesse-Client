@@ -29,35 +29,43 @@ namespace Messe_Client
             Handler.login_window_activity_status = false;
         }
 
+        public void clearInputs()
+        {
+            pwb_password.Password = "";
+            tb_name.Text = "";
+        }
+
         private void loginButton_Click(object sender, RoutedEventArgs e)
         {
-            if(tb_name.Text == name_admin)
-            {
-                if (pwb_password.Password == password_admin)
+            if(tb_name.Text == name_admin)//per API mit DB abgleichen
+            {   //Name richtig, PW wird geprüft...
+                if (pwb_password.Password == password_admin) //per API mit DB abgleichen
                 {
-                    //pw and nam richtig!
+                    //PW und Name richtig!
                     MessageBox.Show("Login erfolgreich!");
                     Handler.login_window_activity_status = false;
+                    Handler.signed_in = true;
+                    Handler.username = tb_name.Text;
                     this.Hide();
                 }
                 else
                 {
                     MessageBox.Show("Passwort falsch!");
-                    //Name richtig, passwort nicht
+                    //Name richtig, PW nicht!
                 }
             }
             else
             {
-                //name falsch, passwort wird geprüft
-                if(pwb_password.Password == password_admin)
+                //Name falsch, PW wird geprüft...
+                if(pwb_password.Password == password_admin)//per API mit DB abgleichen
                 {
                     MessageBox.Show("Name falsch!");
-                    //name falsch, passwort richtig
+                    //Name falsch, PW richtig!
                 }
                 else
                 {
                     MessageBox.Show("Name und Passwort falsch!");
-                    //name und passwort falsch
+                    //Name und PW falsch!
                 }
 
             }
