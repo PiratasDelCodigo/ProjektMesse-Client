@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Messe_Client
+namespace Messe_Client.Models
 {
     public class ProductGroup
     {
