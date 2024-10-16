@@ -8,33 +8,38 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <TabControl SelectionChanged="TabControl_SelectionChanged" x:Name="tabControl">
-            <TabItem x:Name="user_TabItem" Header="TabItem">
+            <TabItem x:Name="user_TabItem" Header="User">
                 <Grid Background="#FFE5E5E5">
-                    <Label Content="Label" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
-                    <TextBox HorizontalAlignment="Left" Margin="121,14,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="310"/>
-                    <Label Content="Label" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
-                    <TextBox HorizontalAlignment="Left" Margin="121,45,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="310"/>
-                    <Label Content="Label" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
-                    <TextBox HorizontalAlignment="Left" Margin="121,77,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="310"/>
-                    <Label Content="Label" HorizontalAlignment="Left" Margin="10,104,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
-                    <TextBox HorizontalAlignment="Left" Margin="121,108,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="310"/>
-                    <Label Content="Label" HorizontalAlignment="Left" Margin="10,137,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="121,137,0,0" VerticalAlignment="Top" Width="120"/>
-                    <CheckBox Content="Create Company" HorizontalAlignment="Left" Margin="13,188,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+                    <Label Content="First Name" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
+                    <TextBox HorizontalAlignment="Left" Margin="121,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310"/>
+                    <Label Content="Last Name" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
+                    <TextBox HorizontalAlignment="Left" Margin="121,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310"/>
+                    <Label Content="Street" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365" Cursor=""/>
+                    <TextBox HorizontalAlignment="Left" Margin="121,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310"/>
+                    <Label Content="City" HorizontalAlignment="Left" Margin="10,104,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
+                    <TextBox HorizontalAlignment="Left" Margin="121,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310"/>
+                    <Label Content="Postal Code" HorizontalAlignment="Left" Margin="10,137,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="121,203,0,0" VerticalAlignment="Top" Width="120"/>
+                    <CheckBox Content="Create Company" HorizontalAlignment="Left" Margin="10,261,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
                     <Image x:Name="userImage" HorizontalAlignment="Left" Height="135" Margin="633,10,0,0" VerticalAlignment="Top" Width="132" Source="/11-0-Big-Sur-Color-Night.jpg" Stretch="Fill"/>
                     <Button Content="Take Image" HorizontalAlignment="Left" Margin="633,165,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.13,0.323" Width="133" Height="20" Click="onClickTakeImage"/>
                     <Button Content="Submit" HorizontalAlignment="Left" Margin="633,222,0,0" VerticalAlignment="Top" Height="111" Width="133"/>
-                    <Label x:Name="lbCName" Content="C Name" HorizontalAlignment="Left" Margin="10,236,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
-                    <TextBox HorizontalAlignment="Left" Margin="121,240,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="310" x:Name="tbCName"/>
-                    <Label Content="C Address" HorizontalAlignment="Left" Margin="10,265,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365" x:Name="lbCAddress"/>
-                    <TextBox HorizontalAlignment="Left" Margin="121,269,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="310" x:Name="tbCAddress"/>
+                    <Label x:Name="lbCName" Content="Company Name" HorizontalAlignment="Left" Margin="10,286,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
+                    <TextBox HorizontalAlignment="Left" Margin="121,290,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310" x:Name="tbCName"/>
+                    <Label Content="Company Address" HorizontalAlignment="Left" Margin="10,315,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365" x:Name="lbCAddress"/>
+                    <TextBox HorizontalAlignment="Left" Margin="121,319,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310" x:Name="tbCAddress"/>
+                    <TextBox HorizontalAlignment="Left" Margin="121,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310"/>
+                    <Label Content="Favorite" HorizontalAlignment="Left" Margin="10,168,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="121,170,0,0" VerticalAlignment="Top" Width="120"/>
+                    <Label Content="Company" HorizontalAlignment="Left" Margin="10,199,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
+                    <Label Content="Is your company not listed?" HorizontalAlignment="Left" Margin="10,230,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365" Height="26" Width="171" FontSize="10"/>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="admin_TabItem" Header="TabItem">
+            <TabItem x:Name="admin_TabItem" Header="Admin">
                 <Grid Background="#FFE5E5E5">
                     <Button x:Name="btCompanies" Content="Manage Companies" HorizontalAlignment="Left" VerticalAlignment="Top" Height="36" Width="784" Click="btCompanies_Click"/>
                     <Button x:Name="btCustomer" Content="Manager Customers" HorizontalAlignment="Left" VerticalAlignment="Top" Height="36" Width="784" Margin="0,36,0,0" Click="btCustomer_Click"/>
-                    <Button x:Name="btProductGroup" Content="Manage Product Group" HorizontalAlignment="Left" VerticalAlignment="Top" Height="36" Width="784" Margin="0,72,0,0" Click="btProductGroup_Click"/>
+                    <Button x:Name="btProductGroup" Content="Manage Product Groups" HorizontalAlignment="Left" VerticalAlignment="Top" Height="36" Width="784" Margin="0,72,0,0" Click="btProductGroup_Click"/>
                 </Grid>
             </TabItem>
         </TabControl>
