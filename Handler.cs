@@ -6,13 +6,9 @@ using System.Threading.Tasks;
 
 namespace Messe_Client
 {
-    internal class Handler
+    static class Handler
     {
-        public bool login_window_activity_status { get; set; }
+        public static bool login_window_activity_status { get; set; }
 
-        public Handler()
-        {
-            login_window_activity_status = false;
-        }
     }
 }

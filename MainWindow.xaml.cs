@@ -21,7 +21,6 @@ namespace Messe_Client
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Handler handler;
         private loginwindow login_window;
         private bool login_window_activity_status = false;
         public MainWindow()
@@ -32,8 +31,7 @@ namespace Messe_Client
             tbCName.Visibility = Visibility.Hidden;
             tbCAddress.Visibility = Visibility.Hidden;
             checkHTTP();
-            handler = new Handler();
-            handler.login_window_activity_status = false;
+            Handler.login_window_activity_status = false;
             login_window = new loginwindow();
         }
 
@@ -106,14 +104,14 @@ namespace Messe_Client
             {
                 if (selectedTab.Name == "admin_TabItem")
                 {
-                    if (handler.login_window_activity_status == false)
+                    if (Handler.login_window_activity_status == false)
                     {
-                        handler.login_window_activity_status = true;
+                        Handler.login_window_activity_status = true;
                         login_window.Show();
                     }
                     else
                     {
-                        handler.login_window_activity_status = false;
+                        Handler.login_window_activity_status = false;
                         Console.WriteLine("Login Window is already active");
                     }
                 }

@@ -22,13 +22,11 @@ namespace Messe_Client
         //
         private string name_admin = "admin";
         private string password_admin = "admin";
-        Handler handler;
 
         public loginwindow()
         {
             InitializeComponent();
-            handler = new Handler();
-            handler.login_window_activity_status = false;
+            Handler.login_window_activity_status = false;
         }
 
         private void loginButton_Click(object sender, RoutedEventArgs e)
@@ -39,7 +37,7 @@ namespace Messe_Client
                 {
                     //pw and nam richtig!
                     MessageBox.Show("Login erfolgreich!");
-                    handler.login_window_activity_status = false;
+                    Handler.login_window_activity_status = false;
                     this.Hide();
                 }
                 else
