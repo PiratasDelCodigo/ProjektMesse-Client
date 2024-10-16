@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using Messe_Client.Models;
+using Newtonsoft.Json;
+using System.Diagnostics;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -42,6 +44,12 @@ namespace Messe_Client
             // GET Request
             string getResponse = await httpService.GetAsync("https://localhost:7049/api/Company");
             Console.WriteLine("GET Response: " + getResponse);
+            Company[] companies = JsonConvert.DeserializeObject<Company[]>(getResponse);
+            foreach(var company in companies)
+            {
+                Console.WriteLine(company.id);
+                Console.WriteLine(company.companyName);
+            }
 
             // POST Request
             string jsonPayload = "{\"key\": \"value\"}";
@@ -110,6 +118,35 @@ namespace Messe_Client
                     }
                 }
             }
+        }
+
+        private async void btCompanies_Click(object sender, RoutedEventArgs e)
+        {
+            var httpService = new HttpService();
+
+            // GET Request
+            string getResponse = await httpService.GetAsync("https://localhost:7049/api/Company");
+            Console.WriteLine("GET Response: " + getResponse);
+            Company[] companies = JsonConvert.DeserializeObject<Company[]>(getResponse);
+            Window2 datawindow = new Window2(companies);
+            datawindow.Show();
+        }
+
+        private async void btProductGroup_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private async void btCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            var httpService = new HttpService();
+
+            // GET Request
+            string getResponse = await httpService.GetAsync("https://localhost:7049/api/Customer");
+            Console.WriteLine("GET Response: " + getResponse);
+            Customer[] customers = JsonConvert.DeserializeObject<Customer[]>(getResponse);
+            Window2 datawindow = new Window2(customers);
+            datawindow.Show();
         }
     }
 }
