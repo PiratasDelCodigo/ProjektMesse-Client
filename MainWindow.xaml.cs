@@ -33,7 +33,7 @@ namespace Messe_Client
             tbCAddress.Visibility = Visibility.Hidden;
             checkHTTP();
             Handler.login_window_activity_status = false;
-            login_window = new loginwindow();
+            
         }
 
         private async void checkHTTP()
@@ -110,36 +110,12 @@ namespace Messe_Client
             {
                 if (selectedTab.Name == "admin_TabItem")
                 {
-                    //Wenn Admin Tab offen ist
-                    if(login_window.IsVisible == false)
-                    {
-                        //Wenn Loginwindow hidden
-                        if(Handler.signed_in == false)
-                        {
-                            //Noch nicht eingeloggt, Loginwindow hidden
-                            login_window.Show();
-                            login_window.Focus();
-                            Handler.login_window_activity_status = true;
-                        }
-                        else
-                        {
-                            //Eingeloggt, Loginwindow hidden --> do nothing
-                            Console.WriteLine($"Already signed in as {Handler.username}");
-                        }
-                    }
-                    else if(login_window.IsVisible == true)
-                    {
-                        //Loginwindow shown -- do nothing (expand if necessary)
-                    }
+                    
                 }
                 else if(selectedTab.Name == "user_TabItem")
                 {
                     //Wenn User Tab offen ist
-                    login_window.Hide();
-                    login_window.clearInputs();
-                    Handler.login_window_activity_status = false;
-                    logout();
-                    Handler.signed_in = false;
+                    
                 }
             }
         }
@@ -171,6 +147,73 @@ namespace Messe_Client
             Customer[] customers = JsonConvert.DeserializeObject<Customer[]>(getResponse);
             Window2 datawindow = new Window2(customers);
             datawindow.Show();*/
+        }
+
+        private void user_grid_loginbutton_Click(object sender, RoutedEventArgs e)
+        {
+            if(Handler.signed_in == false)
+            { 
+                if (login_window == null)
+                {
+                    login_window = new loginwindow();
+                    login_window.Show();
+                }
+                else
+                {
+                    login_window.Close();
+                    Handler.login_window_activity_status = false;
+                    login_window = null;
+                    login_window = new loginwindow();
+                    login_window.Show();
+                    Handler.login_window_activity_status = true;
+                }
+                if (login_window.IsActive == true)
+                {
+                    if (login_window.IsVisible == false)
+                    {
+                        //Wenn Loginwindow hidden
+                        if (Handler.signed_in == false)
+                        {
+                            //Noch nicht eingeloggt, Loginwindow hidden
+                            login_window.Show();
+                            login_window.Focus();
+                            Handler.login_window_activity_status = true;
+                        }
+                        else
+                        {
+                            //Eingeloggt, Loginwindow hidden --> do nothing
+                            Console.WriteLine($"Already signed in as {Handler.username}");
+                        }
+                    }
+                    else if (login_window.IsVisible == true)
+                    {
+                        //Loginwindow shown -- do nothing (expand if necessary)
+                    }
+                }
+                else
+                {
+                    login_window.Close();
+                    Handler.login_window_activity_status = false;
+                    login_window = null;
+                    login_window = new loginwindow();
+                    login_window.Show();
+                    Handler.login_window_activity_status = true;
+                }
+            }
+            else
+            {
+                //logged in, do nothing
+            }
+        }
+
+        private void SignOut_Button_Click(object sender, RoutedEventArgs e)
+        {
+            login_window.clearInputs();
+            login_window.Close();
+            Handler.login_window_activity_status = false;
+            logout();
+            Handler.signed_in = false;
+            MessageBox.Show("Logout erfolgreich!");
         }
     }
 }

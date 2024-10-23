@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Messe_Client"
         mc:Ignorable="d"
-        Title="loginwindow" Height="181" Width="224">
+        Title="loginwindow" Height="181" Width="224" Closing="login_window_Closing">
     <Grid x:Name="admin_login_grid">
         <Canvas x:Name="admin_login_canvas" Margin="0, 0, 0, 0">
             <PasswordBox x:Name="pwb_password" Width="120" HorizontalAlignment="Center" Canvas.Left="67" Canvas.Top="91" VerticalAlignment="Top"/>
