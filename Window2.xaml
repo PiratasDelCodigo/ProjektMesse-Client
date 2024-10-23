@@ -9,7 +9,7 @@
     <Grid>
 
         <Button Content="Edit" Margin="415,10,211,374"/>
-        <TextBox TextWrapping="Wrap" Text="TextBox" Width="400" HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Margin="10,10,0,0" FontSize="16"/>
+        <TextBox x:Name="tbSearchField" TextWrapping="Wrap" Width="400" HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Margin="10,10,0,0" FontSize="16" TextChanged="searchTextChanged"/>
         <Button Content="Delete" Margin="594,10,10,374"/>
         <DataGrid x:Name="dgData" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,65,10,10"/>
 

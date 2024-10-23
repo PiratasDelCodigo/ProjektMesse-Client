@@ -21,6 +21,8 @@ namespace Messe_Client
     /// </summary>
     public partial class Window2 : Window
     {
+        public bool initialized = false;
+
         public Window2()
         {
             InitializeComponent();
@@ -30,6 +32,11 @@ namespace Messe_Client
         {
             InitializeComponent();
             dgData.ItemsSource = data;
+
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(dgData.ItemsSource);
+            view.Filter = FilterCompanies; // Define the filter method
+            initialized = true;
+
         }
 
         public Window2(Customer[] data)
@@ -39,10 +46,46 @@ namespace Messe_Client
         }
 
 
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void searchTextChanged(object sender, TextChangedEventArgs e)
         {
-
+            if (initialized)
+            {
+                CollectionViewSource.GetDefaultView(dgData.ItemsSource).Refresh();
+            }
         }
+
+        private bool FilterCompanies(object item)
+        {
+            if (string.IsNullOrEmpty(tbSearchField.Text))
+                return true; // If no filter text, show all companies
+
+            var company = item as Company;
+            string filterText = tbSearchField.Text.ToLower();
+
+            // Modify this to filter on any field of your Company class
+            return company.city.ToLower().Contains(filterText) ||
+                   company.companyName.ToLower().Contains(filterText) ||
+                   company.street.ToLower().Contains(filterText) ||
+                   company.postalCode.ToLower().Contains(filterText) ||
+                   company.email.ToLower().Contains(filterText); // Example of filtering by name or location
+        }
+
+        private bool FilterCustomers(object item)
+        {
+            if (string.IsNullOrEmpty(tbSearchField.Text))
+                return true; // If no filter text, show all companies
+
+            var customer = item as Customer;
+            string filterText = tbSearchField.Text.ToLower();
+
+            // Modify this to filter on any field of your Company class
+            return customer.FirstName.ToLower().Contains(filterText) ||
+                   customer.LastName.ToLower().Contains(filterText) ||
+                   customer.Street.ToLower().Contains(filterText) ||
+                   customer.PostalCode.ToLower().Contains(filterText) ||
+                   customer.City.ToLower().Contains(filterText); // Example of filtering by name or location
+        }
+
+
     }
 }
