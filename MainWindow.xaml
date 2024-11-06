@@ -19,7 +19,7 @@
                     <Label Content="City" HorizontalAlignment="Left" Margin="10,104,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
                     <TextBox HorizontalAlignment="Left" Margin="121,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310"/>
                     <Label Content="Postal Code" HorizontalAlignment="Left" Margin="10,137,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="121,203,0,0" VerticalAlignment="Top" Width="120"/>
+                    <ComboBox x:Name="companyComboBox" HorizontalAlignment="Left" Margin="121,203,0,0" VerticalAlignment="Top" Width="120"/>
                     <CheckBox Content="Create Company" HorizontalAlignment="Left" Margin="10,261,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
                     <Image x:Name="userImage" HorizontalAlignment="Left" Height="135" Margin="567,13,0,0" VerticalAlignment="Top" Width="132" Source="/11-0-Big-Sur-Color-Night.jpg" Stretch="Fill"/>
                     <Button Content="Take Image" HorizontalAlignment="Left" Margin="567,168,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.13,0.323" Width="133" Height="20" Click="onClickTakeImage"/>
@@ -30,7 +30,7 @@
                     <TextBox HorizontalAlignment="Left" Margin="121,319,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310" x:Name="tbCAddress"/>
                     <TextBox HorizontalAlignment="Left" Margin="121,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310"/>
                     <Label Content="Favorite" HorizontalAlignment="Left" Margin="10,168,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="121,170,0,0" VerticalAlignment="Top" Width="120"/>
+                    <ComboBox x:Name="favoriteComboBox" HorizontalAlignment="Left" Margin="121,170,0,0" VerticalAlignment="Top" Width="120"/>
                     <Label Content="Company" HorizontalAlignment="Left" Margin="10,199,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
                     <Label Content="Is your company not listed?" HorizontalAlignment="Left" Margin="10,230,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365" Height="26" Width="171" FontSize="10"/>
                     <Button x:Name="user_grid_loginbutton" Content="Admin Login" HorizontalAlignment="Left" Margin="722,2,0,0" VerticalAlignment="Top" FontSize="6" Click="user_grid_loginbutton_Click" Width="45"/>

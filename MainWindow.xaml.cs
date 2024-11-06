@@ -44,52 +44,36 @@ namespace Messe_Client
         {
             var httpService = new HttpService();
 
-                // GET Request
-                try
-                {
-                    string getResponse = await httpService.GetAsync("https://localhost:7049/api/Company");
-                    Console.WriteLine("GET Response: " + getResponse);
+            // GET Request
+            try
+            {
+                string getCompanyResponse = await httpService.GetAsync("https://localhost:7049/api/Company");
+                string getProductGroupResponse = await httpService.GetAsync("https://localhost:7049/api/ProductGroup");
 
-                    Company[] companies = JsonConvert.DeserializeObject<Company[]>(getResponse);
-                    foreach (var company in companies)
-                    {
-                        Console.WriteLine(company.id);
-                        Console.WriteLine(company.companyName);
-                    }
-                }
-                catch (HttpRequestException ex)
-                {
-                    Console.WriteLine("Error with GET request: " + ex.Message);
-                }
-                catch (JsonException ex)
-                {
-                    Console.WriteLine("Error deserializing GET response: " + ex.Message);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("An unexpected error occurred in GET request: " + ex.Message);
-                }
+                Company[] companies = JsonConvert.DeserializeObject<Company[]>(getCompanyResponse);
+                ProductGroup[] productGroups = JsonConvert.DeserializeObject<ProductGroup[]>(getProductGroupResponse);
 
-                // POST Request
-                try
-                {
-                    string jsonPayload = "{\"key\": \"value\"}";
-                    string postResponse = await httpService.PostAsync("https://api.example.com/post", jsonPayload);
-                    Console.WriteLine("POST Response: " + postResponse);
-                }
-                catch (HttpRequestException ex)
-                {
-                    Console.WriteLine("Error with POST request: " + ex.Message);
-                }
-                catch (JsonException ex)
-                {
-                    Console.WriteLine("Error processing POST response: " + ex.Message);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("An unexpected error occurred in POST request: " + ex.Message);
-                }
-                }
+                companyComboBox.ItemsSource = companies;
+                companyComboBox.DisplayMemberPath = "companyName";
+                companyComboBox.SelectedValuePath = "id";
+
+                favoriteComboBox.ItemsSource = productGroups;
+                favoriteComboBox.DisplayMemberPath = "groupName";
+                favoriteComboBox.SelectedValuePath = "id";
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine("Error with GET request: " + ex.Message);
+            }
+            catch (JsonException ex)
+            {
+                Console.WriteLine("Error deserializing GET response: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An unexpected error occurred in GET request: " + ex.Message);
+            }
+        }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
