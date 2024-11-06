@@ -230,20 +230,20 @@ namespace Messe_Client
             MessageBox.Show("Logout erfolgreich!");
         }
 
-        public static bool Enable_Admin_Tab()
-        {
-            if(Handler.admin_tab_allowed == true)
-            {
-                //irgendwie in dieser klasse das "admin tab oeffnen" event catchen oder handler abfragen damit der Tab aufgeht!
-                return true;
-            }
-            else
-            {
-                Disable_Admin_Tab();
-                return false;
-            }
+        //public static bool Enable_Admin_Tab()
+        //{
+        //    if(Handler.admin_tab_allowed == true)
+        //    {
+        //        //irgendwie in dieser klasse das "admin tab oeffnen" event catchen oder handler abfragen damit der Tab aufgeht!
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        //Disable_Admin_Tab();
+        //        return false;
+        //    }
 
-            return false;
-        }
+        //    return false;
+        //}
     }
 }
