@@ -159,18 +159,6 @@ namespace Messe_Client
         {
             var httpService = new HttpService();
 
-            // GET Request
-            string getResponse = await httpService.GetAsync("https://localhost:7049/api/Company");
-            Console.WriteLine("GET Response: " + getResponse);
-            Company[] companies = JsonConvert.DeserializeObject<Company[]>(getResponse);
-            Window2 datawindow = new Window2(companies);
-            datawindow.Show();
-        }
-
-        private async void btProductGroup_Click(object sender, RoutedEventArgs e)
-        {
-            var httpService = new HttpService();
-
             // GET Request with error handling
             try
             {
@@ -196,6 +184,11 @@ namespace Messe_Client
             {
                 Console.WriteLine("An unexpected error occurred: " + ex.Message);
             }
+        }
+
+        private async void btProductGroup_Click(object sender, RoutedEventArgs e)
+        {
+            
 
         }
 
