@@ -70,5 +70,12 @@ namespace Messe_Client
 
             }
         }
+
+        private void login_window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Handler.login_window_activity_status = false;
+            Handler.signed_in = false;
+            Handler.username = "";
+        }
     }
 }
