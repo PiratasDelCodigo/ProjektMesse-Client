@@ -172,8 +172,30 @@ namespace Messe_Client
 
         private async void btProductGroup_Click(object sender, RoutedEventArgs e)
         {
-            
+            var httpService = new HttpService();
 
+            try
+            {
+                string getResponse = await httpService.GetAsync("https://localhost:7049/api/ProductGroup");
+                Console.WriteLine("GET Response: " + getResponse);
+
+                ProductGroup[] productGroups = JsonConvert.DeserializeObject<ProductGroup[]>(getResponse);
+
+                Window2 datawindow = new Window2(productGroups);
+                datawindow.Show();
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine("Error with GET request: " + ex.Message);
+            }
+            catch (JsonException ex)
+            {
+                Console.WriteLine("Error deserializing GET response: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An unexpected error occurred: " + ex.Message);
+            }
         }
 
         private async void btCustomer_Click(object sender, RoutedEventArgs e)

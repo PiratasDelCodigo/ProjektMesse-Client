@@ -36,7 +36,6 @@ namespace Messe_Client
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(dgData.ItemsSource);
             view.Filter = FilterCompanies; // Define the filter method
             initialized = true;
-
         }
 
         public Window2(Customer[] data)
@@ -44,6 +43,12 @@ namespace Messe_Client
             InitializeComponent();
             dgData.ItemsSource = data;
         }
+        public Window2(ProductGroup[] data)
+        {
+            InitializeComponent();
+            dgData.ItemsSource = data;
+        }
+
 
 
         private void searchTextChanged(object sender, TextChangedEventArgs e)
@@ -86,6 +91,16 @@ namespace Messe_Client
                    customer.City.ToLower().Contains(filterText); // Example of filtering by name or location
         }
 
+        private bool FilterProductGroups(object item)
+        {
+            if (string.IsNullOrEmpty(tbSearchField.Text))
+                return true; // If no filter text, show all companies
 
+            var productGroup = item as ProductGroup;
+            string filterText = tbSearchField.Text.ToLower();
+
+            // Modify this to filter on any field of your Company class
+            return productGroup.groupName.ToLower().Contains(filterText); // Example of filtering by name or location
+        }
     }
 }
