@@ -231,14 +231,19 @@ namespace Messe_Client
 
         }
 
-        public void enableAdminTab()
+        public void Admin_Tab_Controll()
         {
-            admin_TabItem.Visibility = Visibility.Visible;
-        }
-
-        public void diableAdminTab()
-        {
-            admin_TabItem.Visibility = Visibility.Hidden;
+            if (Handler.admin_tab_allowed == true)
+            {
+                //enable admin tab
+                admin_TabItem.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                //disable admin tab
+                admin_TabItem.Visibility = Visibility.Hidden;
+                tabControl.SelectedItem = user_TabItem;
+            }
         }
 
         private void user_grid_loginbutton_Click(object sender, RoutedEventArgs e)
@@ -247,7 +252,7 @@ namespace Messe_Client
             { 
                 if (login_window == null)
                 {
-                    login_window = new loginwindow();
+                    login_window = new loginwindow(this);
                     login_window.Show();
                 }
                 else
@@ -255,7 +260,7 @@ namespace Messe_Client
                     login_window.Close();
                     Handler.login_window_activity_status = false;
                     login_window = null;
-                    login_window = new loginwindow();
+                    login_window = new loginwindow(this);
                     login_window.Show();
                     Handler.login_window_activity_status = true;
                 }
@@ -288,7 +293,7 @@ namespace Messe_Client
                     login_window.Close();
                     Handler.login_window_activity_status = false;
                     login_window = null;
-                    login_window = new loginwindow();
+                    login_window = new loginwindow(this);
                     login_window.Show();
                     Handler.login_window_activity_status = true;
                 }
@@ -306,23 +311,9 @@ namespace Messe_Client
             Handler.login_window_activity_status = false;
             logout();
             Handler.signed_in = false;
+            Handler.admin_tab_allowed = false;
+            Admin_Tab_Controll();
             MessageBox.Show("Logout erfolgreich!");
         }
-
-        //public static bool Enable_Admin_Tab()
-        //{
-        //    if(Handler.admin_tab_allowed == true)
-        //    {
-        //        //irgendwie in dieser klasse das "admin tab oeffnen" event catchen oder handler abfragen damit der Tab aufgeht!
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        //Disable_Admin_Tab();
-        //        return false;
-        //    }
-
-        //    return false;
-        //}
     }
 }

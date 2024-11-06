@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,12 +23,14 @@ namespace Messe_Client
         //
         private string name_admin = "admin";
         private string password_admin = "admin";
+        private MainWindow mw;
 
-        public loginwindow()
+        public loginwindow(MainWindow mw)
         {
             InitializeComponent();
             Handler.login_window_activity_status = false;
             this.ResizeMode = ResizeMode.NoResize;
+            this.mw = mw;
         }
 
         public void clearInputs()
@@ -48,10 +51,14 @@ namespace Messe_Client
                     Handler.signed_in = true;
                     Handler.username = tb_name.Text;
                     this.Hide();
+                    Handler.admin_tab_allowed = true;
+                    mw.Admin_Tab_Controll();
                 }
                 else
                 {
                     MessageBox.Show("Passwort falsch!");
+                    Handler.admin_tab_allowed = false;
+                    mw.Admin_Tab_Controll();
                     //Name richtig, PW nicht!
                 }
             }
@@ -61,11 +68,15 @@ namespace Messe_Client
                 if(pwb_password.Password == password_admin)//per API mit DB abgleichen
                 {
                     MessageBox.Show("Name falsch!");
+                    Handler.admin_tab_allowed = false;
+                    mw.Admin_Tab_Controll();
                     //Name falsch, PW richtig!
                 }
                 else
                 {
                     MessageBox.Show("Name und Passwort falsch!");
+                    Handler.admin_tab_allowed = false;
+                    mw.Admin_Tab_Controll();
                     //Name und PW falsch!
                 }
 
