@@ -61,6 +61,10 @@ x86/
 bld/
 [Bb]in/
 [Oo]bj/
+obj/*
+obj\
+Obj\*
+Obj/*
 [Ll]og/
 [Ll]ogs/
 
