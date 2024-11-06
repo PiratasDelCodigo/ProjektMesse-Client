@@ -6,6 +6,7 @@ using System.Reflection.Metadata;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Windows;
+using System.Windows.Automation;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -32,7 +33,9 @@ namespace Messe_Client
             tbCName.Visibility = Visibility.Hidden;
             tbCAddress.Visibility = Visibility.Hidden;
             checkHTTP();
+            admin_TabItem.Visibility = Visibility.Hidden;
             Handler.login_window_activity_status = false;
+            
             
         }
 
@@ -149,6 +152,16 @@ namespace Messe_Client
             datawindow.Show();*/
         }
 
+        public void enableAdminTab()
+        {
+            admin_TabItem.Visibility = Visibility.Visible;
+        }
+
+        public void diableAdminTab()
+        {
+            admin_TabItem.Visibility = Visibility.Hidden;
+        }
+
         private void user_grid_loginbutton_Click(object sender, RoutedEventArgs e)
         {
             if(Handler.signed_in == false)
@@ -182,7 +195,8 @@ namespace Messe_Client
                         else
                         {
                             //Eingeloggt, Loginwindow hidden --> do nothing
-                            Console.WriteLine($"Already signed in as {Handler.username}");
+                            Trace.WriteLine($"Already signed in as {Handler.username}");
+                            
                         }
                     }
                     else if (login_window.IsVisible == true)
@@ -214,6 +228,22 @@ namespace Messe_Client
             logout();
             Handler.signed_in = false;
             MessageBox.Show("Logout erfolgreich!");
+        }
+
+        public static bool Enable_Admin_Tab()
+        {
+            if(Handler.admin_tab_allowed == true)
+            {
+                //irgendwie in dieser klasse das "admin tab oeffnen" event catchen oder handler abfragen damit der Tab aufgeht!
+                return true;
+            }
+            else
+            {
+                Disable_Admin_Tab();
+                return false;
+            }
+
+            return false;
         }
     }
 }

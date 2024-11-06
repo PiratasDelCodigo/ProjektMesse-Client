@@ -27,6 +27,7 @@ namespace Messe_Client
         {
             InitializeComponent();
             Handler.login_window_activity_status = false;
+            this.ResizeMode = ResizeMode.NoResize;
         }
 
         public void clearInputs()
@@ -46,6 +47,7 @@ namespace Messe_Client
                     Handler.login_window_activity_status = false;
                     Handler.signed_in = true;
                     Handler.username = tb_name.Text;
+                    Handler.
                     this.Hide();
                 }
                 else
