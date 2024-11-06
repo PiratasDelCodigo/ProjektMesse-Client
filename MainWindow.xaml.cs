@@ -1,7 +1,10 @@
 ﻿using Messe_Client.Models;
 using Newtonsoft.Json;
+using System;
 using System.Diagnostics;
 using System.IO;
+using System.Net.Http;
+using System.Net;
 using System.Reflection.Metadata;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -15,6 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Messe_Client
 {
@@ -35,29 +39,57 @@ namespace Messe_Client
             checkHTTP();
             admin_TabItem.Visibility = Visibility.Hidden;
             Handler.login_window_activity_status = false;
-            
-            
         }
-
         private async void checkHTTP()
         {
             var httpService = new HttpService();
 
-            // GET Request
-            string getResponse = await httpService.GetAsync("https://localhost:7049/api/Company");
-            Console.WriteLine("GET Response: " + getResponse);
-            Company[] companies = JsonConvert.DeserializeObject<Company[]>(getResponse);
-            foreach (var company in companies)
-            {
-                Console.WriteLine(company.id);
-                Console.WriteLine(company.companyName);
-            }
+                // GET Request
+                try
+                {
+                    string getResponse = await httpService.GetAsync("https://localhost:7049/api/Company");
+                    Console.WriteLine("GET Response: " + getResponse);
 
-            // POST Request
-            string jsonPayload = "{\"key\": \"value\"}";
-            string postResponse = await httpService.PostAsync("https://api.example.com/post", jsonPayload);
-            Console.WriteLine("POST Response: " + postResponse);
-        }
+                    Company[] companies = JsonConvert.DeserializeObject<Company[]>(getResponse);
+                    foreach (var company in companies)
+                    {
+                        Console.WriteLine(company.id);
+                        Console.WriteLine(company.companyName);
+                    }
+                }
+                catch (HttpRequestException ex)
+                {
+                    Console.WriteLine("Error with GET request: " + ex.Message);
+                }
+                catch (JsonException ex)
+                {
+                    Console.WriteLine("Error deserializing GET response: " + ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("An unexpected error occurred in GET request: " + ex.Message);
+                }
+
+                // POST Request
+                try
+                {
+                    string jsonPayload = "{\"key\": \"value\"}";
+                    string postResponse = await httpService.PostAsync("https://api.example.com/post", jsonPayload);
+                    Console.WriteLine("POST Response: " + postResponse);
+                }
+                catch (HttpRequestException ex)
+                {
+                    Console.WriteLine("Error with POST request: " + ex.Message);
+                }
+                catch (JsonException ex)
+                {
+                    Console.WriteLine("Error processing POST response: " + ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("An unexpected error occurred in POST request: " + ex.Message);
+                }
+                }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
@@ -128,15 +160,42 @@ namespace Messe_Client
             var httpService = new HttpService();
 
             // GET Request
-           /* string getResponse = await httpService.GetAsync("https://localhost:7049/api/Company");
+            string getResponse = await httpService.GetAsync("https://localhost:7049/api/Company");
             Console.WriteLine("GET Response: " + getResponse);
             Company[] companies = JsonConvert.DeserializeObject<Company[]>(getResponse);
             Window2 datawindow = new Window2(companies);
-            datawindow.Show();*/
+            datawindow.Show();
         }
 
         private async void btProductGroup_Click(object sender, RoutedEventArgs e)
         {
+            var httpService = new HttpService();
+
+            // GET Request with error handling
+            try
+            {
+                string getResponse = await httpService.GetAsync("https://localhost:7049/api/Company");
+                Console.WriteLine("GET Response: " + getResponse);
+
+                // Attempt to deserialize the response
+                Company[] companies = JsonConvert.DeserializeObject<Company[]>(getResponse);
+
+                // If successful, initialize and show the data window
+                Window2 datawindow = new Window2(companies);
+                datawindow.Show();
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine("Error with GET request: " + ex.Message);
+            }
+            catch (JsonException ex)
+            {
+                Console.WriteLine("Error deserializing GET response: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An unexpected error occurred: " + ex.Message);
+            }
 
         }
 
@@ -144,12 +203,32 @@ namespace Messe_Client
         {
             var httpService = new HttpService();
 
-            // GET Request
-           /* string getResponse = await httpService.GetAsync("https://localhost:7049/api/Customer");
-            Console.WriteLine("GET Response: " + getResponse);
-            Customer[] customers = JsonConvert.DeserializeObject<Customer[]>(getResponse);
-            Window2 datawindow = new Window2(customers);
-            datawindow.Show();*/
+            // GET Request with error handling
+            try
+            {
+                string getResponse = await httpService.GetAsync("https://localhost:7049/api/Customer");
+                Console.WriteLine("GET Response: " + getResponse);
+
+                // Attempt to deserialize the response
+                Customer[] customers = JsonConvert.DeserializeObject<Customer[]>(getResponse);
+
+                // If successful, initialize and show the data window
+                Window2 datawindow = new Window2(customers);
+                datawindow.Show();
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine("Error with GET request: " + ex.Message);
+            }
+            catch (JsonException ex)
+            {
+                Console.WriteLine("Error deserializing GET response: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An unexpected error occurred: " + ex.Message);
+            }
+
         }
 
         public void enableAdminTab()
