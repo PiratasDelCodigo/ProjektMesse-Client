@@ -43,12 +43,12 @@ namespace Messe_Client
             // GET Request
             string getResponse = await httpService.GetAsync("https://localhost:7049/api/Company");
             Console.WriteLine("GET Response: " + getResponse);
-            /*Company[] companies = JsonConvert.DeserializeObject<Company[]>(getResponse);
-            foreach(var company in companies)
+            Company[] companies = JsonConvert.DeserializeObject<Company[]>(getResponse);
+            foreach (var company in companies)
             {
                 Console.WriteLine(company.id);
                 Console.WriteLine(company.companyName);
-            }*/
+            }
 
             // POST Request
             string jsonPayload = "{\"key\": \"value\"}";

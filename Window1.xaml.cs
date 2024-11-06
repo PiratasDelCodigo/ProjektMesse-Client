@@ -138,5 +138,20 @@ namespace Messe_Client
             _videoSource?.SignalToStop();
             _videoSource?.WaitForStop();
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (_videoSource != null && _videoSource.IsRunning)
+            {
+                _videoSource.SignalToStop();
+                _videoSource.WaitForStop();
+            }
+
+            var mainWindow = (MainWindow)Application.Current.MainWindow;
+            if (mainWindow != null)
+            {
+                mainWindow.Focus();
+            }
+        }
     }
 }
