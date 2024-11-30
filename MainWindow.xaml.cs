@@ -287,5 +287,42 @@ namespace Messe_Client
             Admin_Tab_Controll();
             MessageBox.Show("Logout erfolgreich!");
         }
+
+        private async void btSubmit_Click(object sender, RoutedEventArgs e)
+        {
+            var httpService = new HttpService();
+            var dataToPost = new
+            {
+                Name = tbCName.Text,
+                Address = tbCAddress.Text
+            };
+
+            try
+            {
+                string jsonData = JsonConvert.SerializeObject(dataToPost);
+                HttpResponseMessage response = await httpService.PostAsync("https://localhost:7049/api/YourEndpoint", jsonData);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show("Data submitted successfully!");
+                }
+                else
+                {
+                    MessageBox.Show("Error submitting data: " + response.ReasonPhrase);
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                MessageBox.Show("Error with POST request: " + ex.Message);
+            }
+            catch (JsonException ex)
+            {
+                MessageBox.Show("Error serializing data: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An unexpected error occurred: " + ex.Message);
+            }
+        }
     }
 }
