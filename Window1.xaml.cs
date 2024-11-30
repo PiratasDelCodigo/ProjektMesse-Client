@@ -132,19 +132,36 @@ namespace Messe_Client
             MessageBox.Show($"Image saved to {filePath}");
         }
 
-        protected override void OnClosed(EventArgs e)
+        protected override async void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-            _videoSource?.SignalToStop();
-            _videoSource?.WaitForStop();
+
+            if (_videoSource != null && _videoSource.IsRunning)
+            {
+                await Task.Run(() =>
+                {
+                    _videoSource.SignalToStop();
+                    _videoSource.WaitForStop();
+                });
+
+                _videoSource = null;
+            }
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private async void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (_videoSource != null && _videoSource.IsRunning)
             {
-                _videoSource.SignalToStop();
-                _videoSource.WaitForStop();
+                e.Cancel = true; // Cancel the closing event temporarily
+                await Task.Run(() =>
+                {
+                    _videoSource.SignalToStop();
+                    _videoSource.WaitForStop();
+                });
+
+                _videoSource = null; // Clean up
+                e.Cancel = false; // Allow the window to close
+                Close(); // Retry closing the window
             }
 
             var mainWindow = (MainWindow)Application.Current.MainWindow;

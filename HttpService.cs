@@ -7,6 +7,18 @@ using System.Threading.Tasks;
 
 namespace Messe_Client
 {
+
+    public enum ResponseCodes
+    {
+        TimeOut,    // 0
+        RequestException,   // 1
+        March,      // 2
+        April,      // 3
+        May,        // 4
+        June,       // 5
+        July        // 6
+    }
+
     class HttpService
     {
         private readonly HttpClient _httpClient;
@@ -17,11 +29,12 @@ namespace Messe_Client
             HttpClientHandler clientHandler = new HttpClientHandler();
             clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
             _httpClient = new HttpClient(clientHandler);
+            _httpClient.Timeout = TimeSpan.FromSeconds(5);
         }
 
 
         // GET Request
-        public async Task<string> GetAsync(string url)
+        public async Task<string?> GetAsync(string url)
         {
             try
             {
@@ -30,14 +43,19 @@ namespace Messe_Client
                 string responseBody = await response.Content.ReadAsStringAsync();
                 return responseBody;
             }
+            catch (TaskCanceledException)
+            {
+                // Handles timeout scenarios
+                return null;
+            }
             catch (HttpRequestException e)
             {
-                return $"Request error: {e.Message}";
+                return null;
             }
         }
 
         // POST Request
-        public async Task<string> PostAsync(string url, string jsonContent)
+        public async Task<string?> PostAsync(string url, string jsonContent)
         {
             try
             {
@@ -47,9 +65,15 @@ namespace Messe_Client
                 string responseBody = await response.Content.ReadAsStringAsync();
                 return responseBody;
             }
+            catch (TaskCanceledException)
+            {
+                // Handles timeout scenarios
+                return null;
+            }
             catch (HttpRequestException e)
             {
-                return $"Request error: {e.Message}";
+                Console.WriteLine($"An Error occured {e.Message}");
+                return null;
             }
         }
 
