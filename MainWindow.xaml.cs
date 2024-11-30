@@ -19,6 +19,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Messe_Client.Handler;
 
 namespace Messe_Client
 {
@@ -29,6 +30,7 @@ namespace Messe_Client
     {
         private loginwindow login_window;
         private bool login_window_activity_status = false;
+        private string pendingImageBase64 = "BAASD";
         public MainWindow()
         {
             InitializeComponent();
@@ -38,47 +40,52 @@ namespace Messe_Client
             tbCAddress.Visibility = Visibility.Hidden;
             prefetch();
             admin_TabItem.Visibility = Visibility.Visible;
-            Handler.login_window_activity_status = false;
+            Handler.LoginHandler.login_window_activity_status = false;
+        }
+
+        private async Task refresh()
+        {
+            var httpService = new HttpService();
+            string getCompanyResponse = await httpService.GetAsync("https://localhost:7049/api/Company");
+            string getProductGroupResponse = await httpService.GetAsync("https://localhost:7049/api/ProductGroup");
+            string getCustomerResponse = await httpService.GetAsync("https://localhost:7049/api/Customer");
+
+
+            if (getCompanyResponse != null)
+            {
+                JsonHandler.setCompaniesToData(getCompanyResponse);
+            }
+            else
+            {
+                Console.WriteLine("Error with GET request: Company");
+            }
+
+            if (getProductGroupResponse != null)
+            {
+                JsonHandler.setProductGroupToData(getProductGroupResponse);
+            }
+            else
+            {
+                Console.WriteLine("Error with GET request: Productgroups");
+            }
+
+            if (getCustomerResponse != null)
+            {
+                JsonHandler.setCustomersToData(getCustomerResponse);
+            }
+            else
+            {
+                Console.WriteLine("Error with GET request: Customers ");
+            }
+            setTimeStamp(JsonHandler.getTimeStamp());
         }
         private async void prefetch()
         {
-            var httpService = new HttpService();
+            await refresh();
 
             // GET Request
             try
             {
-                string getCompanyResponse = await httpService.GetAsync("https://localhost:7049/api/Company");
-                string getProductGroupResponse = await httpService.GetAsync("https://localhost:7049/api/ProductGroup");
-                string getCustomerResponse = await httpService.GetAsync("https://localhost:7049/api/Customer");
-
-
-                if(getCompanyResponse != null)
-                {
-                    JsonHandler.setCompaniesToData(getCompanyResponse);
-                }
-                else
-                {
-                    Console.WriteLine("Error with GET request: Company");
-                }
-
-                if (getProductGroupResponse != null)
-                {
-                    JsonHandler.setProductGroupToData(getProductGroupResponse);
-                }
-                else
-                {
-                    Console.WriteLine("Error with GET request: Productgroups");
-                }
-
-                if (getCustomerResponse != null)
-                {
-                    JsonHandler.setCustomersToData(getCustomerResponse);
-                }
-                else
-                {
-                    Console.WriteLine("Error with GET request: Customers ");
-                }
-
                 (Company[] companies, DateTime t) = JsonHandler.getCompanyFromJSON();
 
                 companyComboBox.ItemsSource = companies;
@@ -126,6 +133,7 @@ namespace Messe_Client
         public void SetImageFromBase64(string base64String)
         {
             // Step 1: Convert the base64 string to a byte array
+            pendingImageBase64 = base64String;
             byte[] imageBytes = Convert.FromBase64String(base64String);
 
             // Step 2: Create a MemoryStream from the byte array
@@ -205,7 +213,7 @@ namespace Messe_Client
 
         public void Admin_Tab_Controll()
         {
-            if (Handler.admin_tab_allowed == true)
+            if (LoginHandler.admin_tab_allowed == true)
             {
                 //enable admin tab
                 admin_TabItem.Visibility = Visibility.Visible;
@@ -220,7 +228,7 @@ namespace Messe_Client
 
         private void user_grid_loginbutton_Click(object sender, RoutedEventArgs e)
         {
-            if(Handler.signed_in == false)
+            if(LoginHandler.signed_in == false)
             { 
                 if (login_window == null)
                 {
@@ -230,28 +238,28 @@ namespace Messe_Client
                 else
                 {
                     login_window.Close();
-                    Handler.login_window_activity_status = false;
+                    LoginHandler.login_window_activity_status = false;
                     login_window = null;
                     login_window = new loginwindow(this);
                     login_window.Show();
-                    Handler.login_window_activity_status = true;
+                    LoginHandler.login_window_activity_status = true;
                 }
                 if (login_window.IsActive == true)
                 {
                     if (login_window.IsVisible == false)
                     {
                         //Wenn Loginwindow hidden
-                        if (Handler.signed_in == false)
+                        if (LoginHandler.signed_in == false)
                         {
                             //Noch nicht eingeloggt, Loginwindow hidden
                             login_window.Show();
                             login_window.Focus();
-                            Handler.login_window_activity_status = true;
+                            LoginHandler.login_window_activity_status = true;
                         }
                         else
                         {
                             //Eingeloggt, Loginwindow hidden --> do nothing
-                            Trace.WriteLine($"Already signed in as {Handler.username}");
+                            Trace.WriteLine($"Already signed in as {Handler.LoginHandler.username}");
                             
                         }
                     }
@@ -263,11 +271,11 @@ namespace Messe_Client
                 else
                 {
                     login_window.Close();
-                    Handler.login_window_activity_status = false;
+                    LoginHandler.login_window_activity_status = false;
                     login_window = null;
                     login_window = new loginwindow(this);
                     login_window.Show();
-                    Handler.login_window_activity_status = true;
+                    LoginHandler.login_window_activity_status = true;
                 }
             }
             else
@@ -280,27 +288,49 @@ namespace Messe_Client
         {
             login_window.clearInputs();
             login_window.Close();
-            Handler.login_window_activity_status = false;
+            LoginHandler.login_window_activity_status = false;
             logout();
-            Handler.signed_in = false;
-            Handler.admin_tab_allowed = false;
+            LoginHandler.signed_in = false;
+            LoginHandler.admin_tab_allowed = false;
             Admin_Tab_Controll();
             MessageBox.Show("Logout erfolgreich!");
         }
 
         private async void btSubmit_Click(object sender, RoutedEventArgs e)
         {
-            var httpService = new HttpService();
-            var dataToPost = new
+            if (string.IsNullOrWhiteSpace(tbFirstName.Text) ||
+                string.IsNullOrWhiteSpace(tbLastName.Text) ||
+                string.IsNullOrWhiteSpace(tbStreet.Text) ||
+                string.IsNullOrWhiteSpace(tbPostalCode.Text) ||
+                string.IsNullOrWhiteSpace(tbCity.Text) ||
+                favoriteComboBox.SelectedItem == null ||
+                companyComboBox.SelectedItem == null)
             {
-                Name = tbCName.Text,
-                Address = tbCAddress.Text
+                MessageBox.Show("Bitte füllen Sie alle Felder aus.");
+                return;
+            }
+
+            ProductGroup customerFavorite = (ProductGroup)favoriteComboBox.SelectedItem;
+
+            Company customerCompany = (Company)companyComboBox.SelectedItem;
+
+            var httpService = new HttpService();
+            var dataToPost = new Customer()
+            {
+                FirstName = tbFirstName.Text,
+                LastName = tbLastName.Text,
+                Street = tbStreet.Text,
+                PostalCode = tbPostalCode.Text,
+                City = tbCity.Text,
+                Image = pendingImageBase64,
+                FavoriteId = customerFavorite.Id,
+                CompanyId = customerCompany.id
             };
 
             try
             {
                 string jsonData = JsonConvert.SerializeObject(dataToPost);
-                HttpResponseMessage response = await httpService.PostAsync("https://localhost:7049/api/YourEndpoint", jsonData);
+                HttpResponseMessage response = await httpService.PostAsync("https://localhost:7049/api/Customer", jsonData);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -323,6 +353,11 @@ namespace Messe_Client
             {
                 MessageBox.Show("An unexpected error occurred: " + ex.Message);
             }
+        }
+
+        private async void btRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            await refresh();
         }
     }
 }

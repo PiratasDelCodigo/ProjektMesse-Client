@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Messe_Client
+namespace Messe_Client.Handler
 {
 
     public enum ResponseCodes
@@ -62,7 +62,7 @@ namespace Messe_Client
                 var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await _httpClient.PostAsync(url, content);
                 response.EnsureSuccessStatusCode();
-                return response; 
+                return response;
             }
             catch (TaskCanceledException)
             {

@@ -11,13 +11,13 @@
             <TabItem x:Name="user_TabItem" Header="User">
                 <Grid x:Name="user_grid" Background="#FFE5E5E5">
                     <Label Content="First Name" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
-                    <TextBox HorizontalAlignment="Left" Margin="121,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310"/>
+                    <TextBox x:Name="tbFirstName" HorizontalAlignment="Left" Margin="121,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310"/>
                     <Label Content="Last Name" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
-                    <TextBox HorizontalAlignment="Left" Margin="121,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310"/>
+                    <TextBox x:Name="tbLastName" HorizontalAlignment="Left" Margin="121,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310"/>
                     <Label Content="Street" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365" Cursor=""/>
-                    <TextBox HorizontalAlignment="Left" Margin="121,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310"/>
+                    <TextBox x:Name="tbStreet" HorizontalAlignment="Left" Margin="121,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310"/>
                     <Label Content="City" HorizontalAlignment="Left" Margin="10,104,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
-                    <TextBox HorizontalAlignment="Left" Margin="121,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310"/>
+                    <TextBox x:Name="tbCity" HorizontalAlignment="Left" Margin="121,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310"/>
                     <Label Content="Postal Code" HorizontalAlignment="Left" Margin="10,137,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
                     <ComboBox x:Name="companyComboBox" HorizontalAlignment="Left" Margin="121,203,0,0" VerticalAlignment="Top" Width="120"/>
                     <CheckBox Content="Create Company" HorizontalAlignment="Left" Margin="10,261,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
@@ -28,14 +28,14 @@
                     <TextBox HorizontalAlignment="Left" Margin="121,290,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310" x:Name="tbCName"/>
                     <Label Content="Company Address" HorizontalAlignment="Left" Margin="10,315,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365" x:Name="lbCAddress"/>
                     <TextBox HorizontalAlignment="Left" Margin="121,319,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310" x:Name="tbCAddress"/>
-                    <TextBox HorizontalAlignment="Left" Margin="121,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310"/>
+                    <TextBox x:Name="tbPostalCode" HorizontalAlignment="Left" Margin="121,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310"/>
                     <Label Content="Favorite" HorizontalAlignment="Left" Margin="10,168,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
                     <ComboBox x:Name="favoriteComboBox" HorizontalAlignment="Left" Margin="121,170,0,0" VerticalAlignment="Top" Width="120"/>
                     <Label Content="Company" HorizontalAlignment="Left" Margin="10,199,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
                     <Label Content="Is your company not listed?" HorizontalAlignment="Left" Margin="10,230,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365" Height="26" Width="171" FontSize="10"/>
                     <Button x:Name="user_grid_loginbutton" Content="Admin Login" HorizontalAlignment="Left" Margin="722,2,0,0" VerticalAlignment="Top" FontSize="6" Click="user_grid_loginbutton_Click" Width="45"/>
                     <Label x:Name="lbTimestamp" Content="Data is up to date" HorizontalAlignment="Left" Margin="499,349,0,0" VerticalAlignment="Top" Width="200"/>
-                    <Button Content="Refresh" HorizontalAlignment="Left" Margin="700,352,0,0" VerticalAlignment="Top" Width="56" RenderTransformOrigin="-0.089,0.655"/>
+                    <Button x:Name="btRefresh" Content="Refresh" HorizontalAlignment="Left" Margin="700,352,0,0" VerticalAlignment="Top" Width="56" RenderTransformOrigin="-0.089,0.655" Click="btRefresh_Click"/>
                     <Label x:Name="lbPending" Content="Pending Data: " HorizontalAlignment="Left" Margin="564,310,0,0" VerticalAlignment="Top" Width="135"/>
                 </Grid>
             </TabItem>

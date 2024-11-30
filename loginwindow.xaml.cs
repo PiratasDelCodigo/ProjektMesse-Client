@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Messe_Client.Handler;
 
 namespace Messe_Client
 {
@@ -28,7 +29,7 @@ namespace Messe_Client
         public loginwindow(MainWindow mw)
         {
             InitializeComponent();
-            Handler.login_window_activity_status = false;
+            Handler.LoginHandler.login_window_activity_status = false;
             this.ResizeMode = ResizeMode.NoResize;
             this.mw = mw;
         }
@@ -47,17 +48,17 @@ namespace Messe_Client
                 {
                     //PW und Name richtig!
                     MessageBox.Show("Login erfolgreich!");
-                    Handler.login_window_activity_status = false;
-                    Handler.signed_in = true;
-                    Handler.username = tb_name.Text;
+                    Handler.LoginHandler.login_window_activity_status = false;
+                    Handler.LoginHandler.signed_in = true;
+                    Handler.LoginHandler.username = tb_name.Text;
                     this.Hide();
-                    Handler.admin_tab_allowed = true;
+                    Handler.LoginHandler.admin_tab_allowed = true;
                     mw.Admin_Tab_Controll();
                 }
                 else
                 {
                     MessageBox.Show("Passwort falsch!");
-                    Handler.admin_tab_allowed = false;
+                    Handler.LoginHandler.admin_tab_allowed = false;
                     mw.Admin_Tab_Controll();
                     //Name richtig, PW nicht!
                 }
@@ -68,14 +69,14 @@ namespace Messe_Client
                 if(pwb_password.Password == password_admin)//per API mit DB abgleichen
                 {
                     MessageBox.Show("Name falsch!");
-                    Handler.admin_tab_allowed = false;
+                    Handler.LoginHandler.admin_tab_allowed = false;
                     mw.Admin_Tab_Controll();
                     //Name falsch, PW richtig!
                 }
                 else
                 {
                     MessageBox.Show("Name und Passwort falsch!");
-                    Handler.admin_tab_allowed = false;
+                    Handler.LoginHandler.admin_tab_allowed = false;
                     mw.Admin_Tab_Controll();
                     //Name und PW falsch!
                 }
@@ -85,9 +86,9 @@ namespace Messe_Client
 
         private void login_window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            Handler.login_window_activity_status = false;
-            Handler.signed_in = false;
-            Handler.username = "";
+            Handler.LoginHandler.login_window_activity_status = false;
+            Handler.LoginHandler.signed_in = false;
+            Handler.LoginHandler.username = "";
         }
     }
 }

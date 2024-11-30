@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Messe_Client
+namespace Messe_Client.Handler
 {
-    static class Handler
+    static class LoginHandler
     {
         public static bool login_window_activity_status { get; set; } = false;
         public static bool signed_in { get; set; } = false;

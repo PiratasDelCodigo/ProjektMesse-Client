@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Messe_Client
+namespace Messe_Client.Handler
 {
     internal static class JsonHandler
     {
@@ -73,6 +73,13 @@ namespace Messe_Client
             jsonData["productGroups"] = companies;
             jsonData["currentTimestamp"] = DateTime.UtcNow;
             File.WriteAllText("data.json", jsonData.ToString());
+        }
+
+        public static DateTime getTimeStamp()
+        {
+            string json = File.ReadAllText("data.json");
+            jsonData = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
+            return jsonData["currentTimestamp"];
         }
 
     }

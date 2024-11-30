@@ -15,7 +15,7 @@ namespace Messe_Client.Models
         public string PostalCode { get; set; }
         public string City { get; set; }
         public string Image { get; set; }
-        public int FavoriteID { get; set; }
-        public int CompanyID { get; set; }
+        public int FavoriteId { get; set; }
+        public int CompanyId { get; set; }
     }
 }
