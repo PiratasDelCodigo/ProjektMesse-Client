@@ -55,25 +55,24 @@ namespace Messe_Client
         }
 
         // POST Request
-        public async Task<string?> PostAsync(string url, string jsonContent)
+        public async Task<HttpResponseMessage> PostAsync(string url, string jsonContent)
         {
             try
             {
                 var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await _httpClient.PostAsync(url, content);
                 response.EnsureSuccessStatusCode();
-                string responseBody = await response.Content.ReadAsStringAsync();
-                return responseBody;
+                return response; 
             }
             catch (TaskCanceledException)
             {
                 // Handles timeout scenarios
-                return null;
+                return new HttpResponseMessage { StatusCode = System.Net.HttpStatusCode.RequestTimeout }; // Return a valid response
             }
             catch (HttpRequestException e)
             {
-                Console.WriteLine($"An Error occured {e.Message}");
-                return null;
+                Console.WriteLine($"An Error occurred {e.Message}");
+                return new HttpResponseMessage { StatusCode = System.Net.HttpStatusCode.InternalServerError }; // Return a valid response
             }
         }
 
