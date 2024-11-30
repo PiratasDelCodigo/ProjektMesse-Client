@@ -23,7 +23,7 @@
                     <CheckBox Content="Create Company" HorizontalAlignment="Left" Margin="10,261,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
                     <Image x:Name="userImage" HorizontalAlignment="Left" Height="135" Margin="567,13,0,0" VerticalAlignment="Top" Width="132" Source="/11-0-Big-Sur-Color-Night.jpg" Stretch="Fill"/>
                     <Button Content="Take Image" HorizontalAlignment="Left" Margin="567,168,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.13,0.323" Width="133" Height="20" Click="onClickTakeImage"/>
-                    <Button Content="Submit" HorizontalAlignment="Left" Margin="567,225,0,0" VerticalAlignment="Top" Height="111" Width="133"/>
+                    <Button x:Name="btSubmit" Content="Submit" HorizontalAlignment="Left" Margin="567,225,0,0" VerticalAlignment="Top" Height="44" Width="133" Click="btSubmit_Click"/>
                     <Label x:Name="lbCName" Content="Company Name" HorizontalAlignment="Left" Margin="10,286,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
                     <TextBox HorizontalAlignment="Left" Margin="121,290,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310" x:Name="tbCName"/>
                     <Label Content="Company Address" HorizontalAlignment="Left" Margin="10,315,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365" x:Name="lbCAddress"/>
@@ -34,6 +34,9 @@
                     <Label Content="Company" HorizontalAlignment="Left" Margin="10,199,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
                     <Label Content="Is your company not listed?" HorizontalAlignment="Left" Margin="10,230,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365" Height="26" Width="171" FontSize="10"/>
                     <Button x:Name="user_grid_loginbutton" Content="Admin Login" HorizontalAlignment="Left" Margin="722,2,0,0" VerticalAlignment="Top" FontSize="6" Click="user_grid_loginbutton_Click" Width="45"/>
+                    <Label x:Name="lbTimestamp" Content="Data is up to date" HorizontalAlignment="Left" Margin="499,349,0,0" VerticalAlignment="Top" Width="200"/>
+                    <Button Content="Refresh" HorizontalAlignment="Left" Margin="700,352,0,0" VerticalAlignment="Top" Width="56" RenderTransformOrigin="-0.089,0.655"/>
+                    <Label x:Name="lbPending" Content="Pending Data: " HorizontalAlignment="Left" Margin="564,310,0,0" VerticalAlignment="Top" Width="135"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="admin_TabItem" Header="Admin">

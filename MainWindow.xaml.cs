@@ -54,7 +54,7 @@ namespace Messe_Client
 
                 if(getCompanyResponse != null)
                 {
-                    File.WriteAllText("companies.json", getCompanyResponse);
+                    JsonHandler.setCompaniesToData(getCompanyResponse);
                 }
                 else
                 {
@@ -63,7 +63,7 @@ namespace Messe_Client
 
                 if (getProductGroupResponse != null)
                 {
-                    File.WriteAllText("productgroups.json", getProductGroupResponse);
+                    JsonHandler.setProductGroupToData(getProductGroupResponse);
                 }
                 else
                 {
@@ -72,26 +72,21 @@ namespace Messe_Client
 
                 if (getCustomerResponse != null)
                 {
-                    File.WriteAllText("customers.json", getCustomerResponse);
+                    JsonHandler.setCustomersToData(getCustomerResponse);
                 }
                 else
                 {
                     Console.WriteLine("Error with GET request: Customers ");
                 }
 
-
-                string json = File.ReadAllText("companies.json");
-                // Deserialize the JSON to a Customer array
-                Company[] companies = JsonConvert.DeserializeObject<Company[]>(json);
+                (Company[] companies, DateTime t) = JsonHandler.getCompanyFromJSON();
 
                 companyComboBox.ItemsSource = companies;
                 companyComboBox.DisplayMemberPath = "companyName";
                 companyComboBox.SelectedValuePath = "id";
 
-                string jso2n = File.ReadAllText("productgroups.json");
-
-                ProductGroup[] productGroups = JsonConvert.DeserializeObject<ProductGroup[]>(jso2n);
-
+                (ProductGroup[] productGroups, DateTime timestamp) = JsonHandler.getProductGroupsFromJSON();
+                setTimeStamp(timestamp);
                 favoriteComboBox.ItemsSource = productGroups;
                 favoriteComboBox.DisplayMemberPath = "groupName";
                 favoriteComboBox.SelectedValuePath = "id";
@@ -168,7 +163,7 @@ namespace Messe_Client
             {
                 if (selectedTab.Name == "admin_TabItem")
                 {
-                    
+
                 }
                 else if(selectedTab.Name == "user_TabItem")
                 {
@@ -178,162 +173,34 @@ namespace Messe_Client
             }
         }
 
-        private async void btCompanies_Click(object sender, RoutedEventArgs e)
+        private void setTimeStamp(DateTime time)
         {
-            var httpService = new HttpService();
-
-            // GET Request with error handling
-            try
-            {
-                Company[] companies = [];
-                string getResponse = await httpService.GetAsync("https://localhost:7049/api/Company");
-                if (getResponse == null)
-                {
-                    try
-                    {
-                        string json = File.ReadAllText("companies.json");
-
-                        // Deserialize the JSON to a Customer array
-                        companies = JsonConvert.DeserializeObject<Company[]>(json);
-                    }
-                    catch
-                    {
-                        Console.WriteLine("Error reading from file");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("GET Response: " + getResponse);
-
-                    // Write the response to a JSON file
-                    File.WriteAllText("companies.json", getResponse);
-
-                    // Attempt to deserialize the response
-                    companies = JsonConvert.DeserializeObject<Company[]>(getResponse);
-
-
-                }
-                // If successful, initialize and show the data window
-                Window2 datawindow = new Window2(companies);
-                datawindow.Show();
-            }
-            catch (HttpRequestException ex)
-            {
-                Console.WriteLine("Error with GET request: " + ex.Message);
-            }
-            catch (JsonException ex)
-            {
-                Console.WriteLine("Error deserializing GET response: " + ex.Message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("An unexpected error occurred: " + ex.Message);
-            }
+            lbTimestamp.Content = "Last Update: " + time.ToString("dd.MM.yyyy HH:mm:ss");
         }
 
-        private async void btProductGroup_Click(object sender, RoutedEventArgs e)
+        private void btCompanies_Click(object sender, RoutedEventArgs e)
         {
-            var httpService = new HttpService();
-
-            try
-            {
-           
-                ProductGroup[] productGroups = [];
-                string getResponse = await httpService.GetAsync("https://localhost:7049/api/ProductGroup");
-                if (getResponse == null)
-                {
-                    try
-                    {
-                        string json = File.ReadAllText("productgroups.json");
-
-                        // Deserialize the JSON to a Customer array
-                        productGroups = JsonConvert.DeserializeObject<ProductGroup[]>(json);
-                    }
-                    catch
-                    {
-                        Console.WriteLine("Error reading from file");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("GET Response: " + getResponse);
-
-                    // Write the response to a JSON file
-                    File.WriteAllText("productgroups.json", getResponse);
-
-                    // Attempt to deserialize the response
-                    productGroups = JsonConvert.DeserializeObject<ProductGroup[]>(getResponse);
-
-
-                }
-                // If successful, initialize and show the data window
-                Window2 datawindow = new Window2(productGroups);
-                datawindow.Show();
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("An unexpected error occurred: " + ex.Message);
-            }
-
-
-
-
-
+            // If successful, initialize and show the data window
+            (Company[] companies, DateTime timestamp) = JsonHandler.getCompanyFromJSON();
+            setTimeStamp(timestamp);
+            Window2 datawindow = new Window2(companies != null && companies.Length > 0 ? companies : []);
+            datawindow.Show();
         }
 
-        private async void btCustomer_Click(object sender, RoutedEventArgs e)
+        private void btProductGroup_Click(object sender, RoutedEventArgs e)
         {
-            var httpService = new HttpService();
+            (ProductGroup[] productGroups, DateTime timestamp) = JsonHandler.getProductGroupsFromJSON();
+            setTimeStamp(timestamp);
+            Window2 datawindow = new Window2(productGroups != null && productGroups.Length > 0 ? productGroups : []);
+            datawindow.Show();
+        }
 
-            // GET Request with error handling
-            try
-            {
-                Customer[] customers = [];
-                string getResponse = await httpService.GetAsync("https://localhost:7049/api/Customer");
-                if (getResponse == null)
-                {
-                    try
-                    {
-                        string json = File.ReadAllText("customers.json");
-
-                        // Deserialize the JSON to a Customer array
-                        customers = JsonConvert.DeserializeObject<Customer[]>(json);
-                    }
-                    catch
-                    {
-                        Console.WriteLine("Error reading from file");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("GET Response: " + getResponse);
-
-                    // Write the response to a JSON file
-                    File.WriteAllText("customers.json", getResponse);
-
-                    // Attempt to deserialize the response
-                    customers = JsonConvert.DeserializeObject<Customer[]>(getResponse);
-
-                  
-                }
-                // If successful, initialize and show the data window
-                Window2 datawindow = new Window2(customers);
-                datawindow.Show();
-
-            }
-            catch (HttpRequestException ex)
-            {
-                Console.WriteLine("Error with GET request: " + ex.Message);
-            }
-            catch (JsonException ex)
-            {
-                Console.WriteLine("Error deserializing GET response: " + ex.Message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("An unexpected error occurred: " + ex.Message);
-            }
+        private void btCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            (Customer[] customers, DateTime timestamp) = JsonHandler.getCustomersFromJSON();
+            setTimeStamp(timestamp);
+            Window2 datawindow = new Window2(customers != null && customers.Length > 0 ? customers : []);
+            datawindow.Show();
         }
 
         public void Admin_Tab_Controll()
