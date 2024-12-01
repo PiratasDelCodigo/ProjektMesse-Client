@@ -34,7 +34,7 @@
                     <Label Content="Company" HorizontalAlignment="Left" Margin="10,199,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
                     <Label Content="Is your company not listed?" HorizontalAlignment="Left" Margin="10,230,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365" Height="26" Width="171" FontSize="10"/>
                     <Button x:Name="user_grid_loginbutton" Content="Admin Login" HorizontalAlignment="Left" Margin="722,2,0,0" VerticalAlignment="Top" FontSize="6" Click="user_grid_loginbutton_Click" Width="45"/>
-                    <Label x:Name="lbTimestamp" Content="Data is up to date" HorizontalAlignment="Left" Margin="499,349,0,0" VerticalAlignment="Top" Width="200"/>
+                    <Label x:Name="lbTimestamp" Content="Fetching data..." HorizontalAlignment="Left" Margin="499,349,0,0" VerticalAlignment="Top" Width="200"/>
                     <Button x:Name="btRefresh" Content="Refresh" HorizontalAlignment="Left" Margin="700,352,0,0" VerticalAlignment="Top" Width="56" RenderTransformOrigin="-0.089,0.655" Click="btRefresh_Click"/>
                     <Label x:Name="lbPending" Content="Pending Data: " HorizontalAlignment="Left" Margin="564,310,0,0" VerticalAlignment="Top" Width="135"/>
                 </Grid>

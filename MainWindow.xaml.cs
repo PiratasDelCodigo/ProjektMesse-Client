@@ -77,7 +77,15 @@ namespace Messe_Client
             {
                 Console.WriteLine("Error with GET request: Customers ");
             }
+
+            (int pendingCount, int successCount) = await JsonHandler.sendPendingData();
+            lbPending.Content = "Pending Data: " + pendingCount;
+            if(successCount > 0)
+            {
+                MessageBox.Show($"{successCount} Pending data sent successfully!");
+            }
             setTimeStamp(JsonHandler.getTimeStamp());
+
         }
         private async void prefetch()
         {
@@ -97,7 +105,6 @@ namespace Messe_Client
                 favoriteComboBox.ItemsSource = productGroups;
                 favoriteComboBox.DisplayMemberPath = "groupName";
                 favoriteComboBox.SelectedValuePath = "id";
-
             }
             catch (HttpRequestException ex)
             {
@@ -338,6 +345,8 @@ namespace Messe_Client
                 }
                 else
                 {
+                    int pendingCount = JsonHandler.setPendingCustomers(dataToPost);
+                    lbPending.Content = "Pending Data: " + pendingCount;
                     MessageBox.Show("Error submitting data: " + response.ReasonPhrase);
                 }
             }

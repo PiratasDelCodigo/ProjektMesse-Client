@@ -29,7 +29,7 @@ namespace Messe_Client.Handler
             HttpClientHandler clientHandler = new HttpClientHandler();
             clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
             _httpClient = new HttpClient(clientHandler);
-            _httpClient.Timeout = TimeSpan.FromSeconds(5);
+            _httpClient.Timeout = TimeSpan.FromSeconds(2);
         }
 
 
@@ -38,6 +38,11 @@ namespace Messe_Client.Handler
         {
             try
             {
+                bool isReachable = await IsApiReachableAsync(url);
+                if (!isReachable)
+                {
+                    return null;
+                }
                 HttpResponseMessage response = await _httpClient.GetAsync(url);
                 response.EnsureSuccessStatusCode();
                 string responseBody = await response.Content.ReadAsStringAsync();
@@ -59,6 +64,13 @@ namespace Messe_Client.Handler
         {
             try
             {
+                // Check API reachability
+                bool isReachable = await IsApiReachableAsync(url);
+                if (!isReachable)
+                {
+                    return new HttpResponseMessage { StatusCode = System.Net.HttpStatusCode.ServiceUnavailable };
+                }
+
                 var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await _httpClient.PostAsync(url, content);
                 response.EnsureSuccessStatusCode();
@@ -67,12 +79,32 @@ namespace Messe_Client.Handler
             catch (TaskCanceledException)
             {
                 // Handles timeout scenarios
-                return new HttpResponseMessage { StatusCode = System.Net.HttpStatusCode.RequestTimeout }; // Return a valid response
+                return new HttpResponseMessage { StatusCode = System.Net.HttpStatusCode.RequestTimeout };
             }
             catch (HttpRequestException e)
             {
                 Console.WriteLine($"An Error occurred {e.Message}");
-                return new HttpResponseMessage { StatusCode = System.Net.HttpStatusCode.InternalServerError }; // Return a valid response
+                return new HttpResponseMessage { StatusCode = System.Net.HttpStatusCode.InternalServerError };
+            }
+        }
+
+        private async Task<bool> IsApiReachableAsync(string url)
+        {
+            try
+            {
+                // Use GET instead of HEAD
+                HttpResponseMessage response = await _httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
+
+                Console.WriteLine($"Status Code: {response.StatusCode}");
+                Console.WriteLine($"Is Success: {response.IsSuccessStatusCode}");
+
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Reachability Check Failed: {ex.GetType().Name}");
+                Console.WriteLine($"Error Message: {ex.Message}");
+                return false;
             }
         }
 
