@@ -16,8 +16,12 @@ namespace Messe_Client.Handler
     {
         public static dynamic? jsonData { get; set; }
 
-        public static (Company[]?, DateTime) getCompanyFromJSON()
+        public static (Company[]?, DateTime?) getCompanyFromJSON()
         {
+            if (!File.Exists("data.json"))
+            {
+                File.WriteAllText("data.json", "{\"companies\":[],\"customers\":[],\"productGroups\":[],\"pendingCustomers\":[],\"currentTimestamp\":null}");
+            }
             string json = File.ReadAllText("data.json");
             jsonData = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
             File.WriteAllText("data.json", jsonData.ToString());
@@ -26,8 +30,12 @@ namespace Messe_Client.Handler
             return (companies, timestamp);
         }
 
-        public static (Customer[]?, DateTime) getCustomersFromJSON()
+        public static (Customer[]?, DateTime?) getCustomersFromJSON()
         {
+            if (!File.Exists("data.json"))
+            {
+                File.WriteAllText("data.json", "{\"companies\":[],\"customers\":[],\"productGroups\":[],\"pendingCustomers\":[],\"currentTimestamp\":null}");
+            }
             string json = File.ReadAllText("data.json");
             jsonData = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
             File.WriteAllText("data.json", jsonData.ToString());
@@ -36,8 +44,12 @@ namespace Messe_Client.Handler
             return (customers, timestamp);
         }
 
-        public static (ProductGroup[]?, DateTime) getProductGroupsFromJSON()
+        public static (ProductGroup[]?, DateTime?) getProductGroupsFromJSON()
         {
+            if (!File.Exists("data.json"))
+            {
+                File.WriteAllText("data.json", "{\"companies\":[],\"customers\":[],\"productGroups\":[],\"pendingCustomers\":[],\"currentTimestamp\":null}");
+            }
             string json = File.ReadAllText("data.json");
             jsonData = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
             File.WriteAllText("data.json", jsonData.ToString());
@@ -48,39 +60,75 @@ namespace Messe_Client.Handler
 
         public static void setCompaniesToData(string companyJSON)
         {
+            if (!File.Exists("data.json"))
+            {
+                File.WriteAllText("data.json", "{\"companies\":[],\"customers\":[],\"productGroups\":[],\"pendingCustomers\":[],\"currentTimestamp\":null}");
+            }
             string json = File.ReadAllText("data.json");
             jsonData = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
             dynamic companies = Newtonsoft.Json.JsonConvert.DeserializeObject(companyJSON);
+            if(jsonData["companies"] == null)
+            {
+                jsonData["companies"] = new Newtonsoft.Json.Linq.JArray();
+            }
             jsonData["companies"] = companies;
             jsonData["currentTimestamp"] = DateTime.UtcNow;
             File.WriteAllText("data.json", jsonData.ToString());
         }
 
-        public static void setCustomersToData(string companyJSON)
+        public static void setCustomersToData(string customersJSON)
         {
+            if (!File.Exists("data.json"))
+            {
+                File.WriteAllText("data.json", "{\"companies\":[],\"customers\":[],\"productGroups\":[],\"pendingCustomers\":[],\"currentTimestamp\":null}");
+            }
             string json = File.ReadAllText("data.json");
             jsonData = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
-            dynamic companies = Newtonsoft.Json.JsonConvert.DeserializeObject(companyJSON);
-            jsonData["customers"] = companies;
+            dynamic customers = Newtonsoft.Json.JsonConvert.DeserializeObject(customersJSON);
+            if (jsonData["customers"] == null)
+            {
+                jsonData["customers"] = new Newtonsoft.Json.Linq.JArray();
+            }
+            jsonData["customers"] = customers;
             jsonData["currentTimestamp"] = DateTime.UtcNow;
             File.WriteAllText("data.json", jsonData.ToString());
         }
 
-        public static void setProductGroupToData(string companyJSON)
+        public static void setProductGroupToData(string productGroupsJSON)
         {
+            if (!File.Exists("data.json"))
+            {
+                File.WriteAllText("data.json", "{\"companies\":[],\"customers\":[],\"productGroups\":[],\"pendingCustomers\":[],\"currentTimestamp\":null}");
+            }
             string json = File.ReadAllText("data.json");
             jsonData = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
-            dynamic companies = Newtonsoft.Json.JsonConvert.DeserializeObject(companyJSON);
-            jsonData["productGroups"] = companies;
+            dynamic productGroups = Newtonsoft.Json.JsonConvert.DeserializeObject(productGroupsJSON);
+            if (jsonData["productGroups"] == null)
+            {
+                jsonData["productGroups"] = new Newtonsoft.Json.Linq.JArray();
+            }
+            jsonData["productGroups"] = productGroups;
             jsonData["currentTimestamp"] = DateTime.UtcNow;
             File.WriteAllText("data.json", jsonData.ToString());
         }
 
-        public static DateTime getTimeStamp()
+        public static DateTime? getTimeStamp()
         {
+            if (!File.Exists("data.json"))
+            {
+                File.WriteAllText("data.json", "{\"companies\":[],\"customers\":[],\"productGroups\":[],\"pendingCustomers\":[],\"currentTimestamp\":null}");
+                return null;
+            }
             string json = File.ReadAllText("data.json");
             jsonData = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
-            return jsonData["currentTimestamp"];
+            if (jsonData != null && jsonData["currentTimestamp"] != null)
+            {
+                return jsonData["currentTimestamp"].ToObject<DateTime>();
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public static int setPendingCustomers(Customer customer)
@@ -105,13 +153,18 @@ namespace Messe_Client.Handler
 
         public static Customer[]? getPendingCustomers()
         {
+            if (!File.Exists("data.json"))
+            {
+                File.WriteAllText("data.json", "{\"companies\":[],\"customers\":[],\"productGroups\":[],\"pendingCustomers\":[],\"currentTimestamp\":null}");
+                return new Customer[0];
+            }
             string json = File.ReadAllText("data.json");
             jsonData = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
-            if (jsonData["pendingCustomers"] != null)
+            if (jsonData != null && jsonData["pendingCustomers"] != null)
             {
                 return jsonData["pendingCustomers"].ToObject<Customer[]>();
             }
-            return null;
+            return new Customer[0];
         }   
 
         public static async Task<(int,int)> sendPendingData()
@@ -121,7 +174,7 @@ namespace Messe_Client.Handler
             List<Customer> successCustomers = new List<Customer>();
 
 
-            foreach (var customer in pendingCustomers)
+            foreach (var customer in pendingCustomers != null ? pendingCustomers : [])
             {
                 string json = JsonConvert.SerializeObject(customer);
                 HttpResponseMessage response = await httpService.PostAsync("https://localhost:7049/api/Customer", json);
@@ -134,6 +187,7 @@ namespace Messe_Client.Handler
 
             if (successCustomers.Count > 0)
             {
+
                 string json = File.ReadAllText("data.json");
                 jsonData = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
 

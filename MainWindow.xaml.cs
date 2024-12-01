@@ -84,7 +84,12 @@ namespace Messe_Client
             {
                 MessageBox.Show($"{successCount} Pending data sent successfully!");
             }
-            setTimeStamp(JsonHandler.getTimeStamp());
+            var timeStamp = JsonHandler.getTimeStamp();
+            if (timeStamp != null)
+            {
+                setTimeStamp((DateTime) timeStamp);
+            }
+            
 
         }
         private async void prefetch()
@@ -94,14 +99,17 @@ namespace Messe_Client
             // GET Request
             try
             {
-                (Company[] companies, DateTime t) = JsonHandler.getCompanyFromJSON();
+                (Company[] companies, var t) = JsonHandler.getCompanyFromJSON();
 
                 companyComboBox.ItemsSource = companies;
                 companyComboBox.DisplayMemberPath = "companyName";
                 companyComboBox.SelectedValuePath = "id";
 
-                (ProductGroup[] productGroups, DateTime timestamp) = JsonHandler.getProductGroupsFromJSON();
-                setTimeStamp(timestamp);
+                (ProductGroup[] productGroups, var timeStamp) = JsonHandler.getProductGroupsFromJSON();
+                if (timeStamp != null)
+                {
+                    setTimeStamp((DateTime)timeStamp);
+                }
                 favoriteComboBox.ItemsSource = productGroups;
                 favoriteComboBox.DisplayMemberPath = "groupName";
                 favoriteComboBox.SelectedValuePath = "id";
@@ -196,24 +204,33 @@ namespace Messe_Client
         private void btCompanies_Click(object sender, RoutedEventArgs e)
         {
             // If successful, initialize and show the data window
-            (Company[] companies, DateTime timestamp) = JsonHandler.getCompanyFromJSON();
-            setTimeStamp(timestamp);
+            (Company[] companies, DateTime? timeStamp) = JsonHandler.getCompanyFromJSON();
+            if (timeStamp != null)
+            {
+                setTimeStamp((DateTime)timeStamp);
+            }
             Window2 datawindow = new Window2(companies != null && companies.Length > 0 ? companies : []);
             datawindow.Show();
         }
 
         private void btProductGroup_Click(object sender, RoutedEventArgs e)
         {
-            (ProductGroup[] productGroups, DateTime timestamp) = JsonHandler.getProductGroupsFromJSON();
-            setTimeStamp(timestamp);
+            (ProductGroup[] productGroups, DateTime? timeStamp) = JsonHandler.getProductGroupsFromJSON();
+            if (timeStamp != null)
+            {
+                setTimeStamp((DateTime)timeStamp);
+            }
             Window2 datawindow = new Window2(productGroups != null && productGroups.Length > 0 ? productGroups : []);
             datawindow.Show();
         }
 
         private void btCustomer_Click(object sender, RoutedEventArgs e)
         {
-            (Customer[] customers, DateTime timestamp) = JsonHandler.getCustomersFromJSON();
-            setTimeStamp(timestamp);
+            (Customer[] customers, DateTime? timeStamp) = JsonHandler.getCustomersFromJSON();
+            if (timeStamp != null)
+            {
+                setTimeStamp((DateTime)timeStamp);
+            }
             Window2 datawindow = new Window2(customers != null && customers.Length > 0 ? customers : []);
             datawindow.Show();
         }
