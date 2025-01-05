@@ -322,18 +322,38 @@ namespace Messe_Client
 
         private async void btSubmit_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(tbFirstName.Text) ||
-                string.IsNullOrWhiteSpace(tbLastName.Text) ||
-                string.IsNullOrWhiteSpace(tbStreet.Text) ||
-                string.IsNullOrWhiteSpace(tbPostalCode.Text) ||
-                string.IsNullOrWhiteSpace(tbCity.Text) ||
-                favoriteComboBox.SelectedItem == null ||
-                companyComboBox.SelectedItem == null)
+            if (string.IsNullOrEmpty(tbFirstName.Text) ||
+                string.IsNullOrEmpty(tbLastName.Text) ||
+                string.IsNullOrEmpty(tbStreet.Text) ||
+                string.IsNullOrEmpty(tbPostalCode.Text) ||
+                string.IsNullOrEmpty(tbCity.Text) ||
+                favoriteComboBox.SelectedItem == null)
             {
                 MessageBox.Show("Bitte füllen Sie alle Felder aus.");
                 return;
             }
+            if (cbCreateCompany.IsChecked == false)
+            {
+                if (companyComboBox.SelectedItem == null)
+                {
+                    MessageBox.Show("Bitte eine Company auswählen.");
+                    return;
+                }
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(tbCName.Text) || string.IsNullOrEmpty(tbCAddress.Text))
+                {
+                    MessageBox.Show("Bitte füllen Sie alle Felder der neuen Company aus.");
+                    return;
+                }
+            }
+            postNewCustomer(e, sender);
+            clearCutomerDataFromMainWindow();
 
+        }
+        private async void postNewCustomer(RoutedEventArgs e, object sender)
+        {
             ProductGroup customerFavorite = (ProductGroup)favoriteComboBox.SelectedItem;
 
             Company customerCompany = (Company)companyComboBox.SelectedItem;
@@ -379,6 +399,19 @@ namespace Messe_Client
             {
                 MessageBox.Show("An unexpected error occurred: " + ex.Message);
             }
+        }
+
+        private void clearCutomerDataFromMainWindow()
+        {
+            tbFirstName.Text = "";
+            tbLastName.Text = "";
+            tbStreet.Text = "";
+            tbPostalCode.Text = "";
+            tbCity.Text = "";
+            favoriteComboBox.SelectedItem = null;
+            companyComboBox.SelectedItem = null;
+            pendingImageBase64 = "BAASD";
+            userImage.Source = null;
         }
 
         private async void btRefresh_Click(object sender, RoutedEventArgs e)
