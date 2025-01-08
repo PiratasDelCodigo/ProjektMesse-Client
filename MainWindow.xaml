@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Messe_Client"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="792">
+        Title="MainWindow" Height="480" Width="790">
     <Grid x:Name="main_grid">
         <TabControl SelectionChanged="TabControl_SelectionChanged" x:Name="tabControl">
             <TabItem x:Name="user_TabItem" Header="User">
@@ -24,10 +24,10 @@
                     <Image x:Name="userImage" HorizontalAlignment="Left" Height="135" Margin="567,13,0,0" VerticalAlignment="Top" Width="132" Source="/11-0-Big-Sur-Color-Night.jpg" Stretch="Fill"/>
                     <Button Content="Take Image" HorizontalAlignment="Left" Margin="567,168,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.13,0.323" Width="133" Height="20" Click="onClickTakeImage"/>
                     <Button x:Name="btSubmit" Content="Submit" HorizontalAlignment="Left" Margin="567,225,0,0" VerticalAlignment="Top" Height="44" Width="133" Click="btSubmit_Click"/>
-                    <Label x:Name="lbCName" Content="Company Name" HorizontalAlignment="Left" Margin="10,286,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
-                    <TextBox HorizontalAlignment="Left" Margin="121,290,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310" x:Name="tbCName"/>
-                    <Label Content="Company Address" HorizontalAlignment="Left" Margin="10,315,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365" x:Name="lbCAddress"/>
-                    <TextBox HorizontalAlignment="Left" Margin="121,319,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310" x:Name="tbCAddress"/>
+                    <Label x:Name="lbCName" Content="Company Name" HorizontalAlignment="Left" Margin="10,279,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365" Width="106"/>
+                    <TextBox HorizontalAlignment="Left" Margin="164,287,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310" x:Name="tbCName"/>
+                    <Label Content="Company Address" HorizontalAlignment="Left" Margin="10,302,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365" x:Name="lbCAddress" Width="106"/>
+                    <TextBox HorizontalAlignment="Left" Margin="164,310,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310" x:Name="tbCAddress"/>
                     <TextBox x:Name="tbPostalCode" HorizontalAlignment="Left" Margin="121,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310"/>
                     <Label Content="Fav. Productgroup" HorizontalAlignment="Left" Margin="10,168,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.365"/>
                     <ComboBox x:Name="favoriteComboBox" HorizontalAlignment="Left" Margin="121,170,0,0" VerticalAlignment="Top" Width="120"/>
@@ -37,6 +37,12 @@
                     <Label x:Name="lbTimestamp" Content="Fetching data..." HorizontalAlignment="Left" Margin="499,349,0,0" VerticalAlignment="Top" Width="200"/>
                     <Button x:Name="btRefresh" Content="Refresh" HorizontalAlignment="Left" Margin="700,352,0,0" VerticalAlignment="Top" Width="56" RenderTransformOrigin="-0.089,0.655" Click="btRefresh_Click"/>
                     <Label x:Name="lbPending" Content="Pending Data: " HorizontalAlignment="Left" Margin="564,310,0,0" VerticalAlignment="Top" Width="135"/>
+                    <TextBox x:Name="tbCCity" HorizontalAlignment="Left" Margin="164,333,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310"/>
+                    <Label x:Name="lbCCity" Content="Company City" HorizontalAlignment="Left" Margin="10,325,0,0" VerticalAlignment="Top" Width="106"/>
+                    <Label x:Name="lbCPostalCode" Content="Company Postal Code" HorizontalAlignment="Left" Margin="10,348,0,0" VerticalAlignment="Top" Width="126"/>
+                    <Label x:Name="lbCEMail" Content="Company E-Mail" HorizontalAlignment="Left" Margin="10,371,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.509,0.581"/>
+                    <TextBox x:Name="tbCPostalCode" HorizontalAlignment="Left" Margin="164,356,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310"/>
+                    <TextBox x:Name="tbCEMail" HorizontalAlignment="Left" Margin="164,379,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="310"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="admin_TabItem" Header="Admin">

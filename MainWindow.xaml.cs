@@ -36,8 +36,14 @@ namespace Messe_Client
             InitializeComponent();
             lbCName.Visibility = Visibility.Hidden;
             lbCAddress.Visibility = Visibility.Hidden;
+            lbCCity.Visibility = Visibility.Hidden;
+            lbCPostalCode.Visibility = Visibility.Hidden;
+            lbCEMail.Visibility = Visibility.Hidden;
             tbCName.Visibility = Visibility.Hidden;
             tbCAddress.Visibility = Visibility.Hidden;
+            tbCCity.Visibility = Visibility.Hidden;
+            tbCPostalCode.Visibility = Visibility.Hidden;
+            tbCEMail.Visibility = Visibility.Hidden;
             prefetch();
             admin_TabItem.Visibility = Visibility.Visible;
             Handler.LoginHandler.login_window_activity_status = false;
@@ -135,8 +141,14 @@ namespace Messe_Client
         {
             lbCName.Visibility = Visibility.Visible;
             lbCAddress.Visibility = Visibility.Visible;
+            lbCCity.Visibility = Visibility.Visible;
+            lbCPostalCode.Visibility = Visibility.Visible;
+            lbCEMail.Visibility = Visibility.Visible;
             tbCName.Visibility = Visibility.Visible;
             tbCAddress.Visibility = Visibility.Visible;
+            tbCCity.Visibility = Visibility.Visible;
+            tbCPostalCode.Visibility = Visibility.Visible;
+            tbCEMail.Visibility = Visibility.Visible;
         }
 
         private void onClickTakeImage(object sender, RoutedEventArgs e)
@@ -171,8 +183,14 @@ namespace Messe_Client
         {
             lbCName.Visibility = Visibility.Hidden;
             lbCAddress.Visibility = Visibility.Hidden;
+            lbCCity.Visibility = Visibility.Hidden;
+            lbCPostalCode.Visibility = Visibility.Hidden;
+            lbCEMail.Visibility = Visibility.Hidden;
             tbCName.Visibility = Visibility.Hidden;
             tbCAddress.Visibility = Visibility.Hidden;
+            tbCCity.Visibility = Visibility.Hidden;
+            tbCPostalCode.Visibility = Visibility.Hidden;
+            tbCEMail.Visibility = Visibility.Hidden;
         }
 
         public void logout()
