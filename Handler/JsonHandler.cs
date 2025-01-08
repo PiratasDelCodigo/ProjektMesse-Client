@@ -26,7 +26,14 @@ namespace Messe_Client.Handler
             jsonData = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
             File.WriteAllText("data.json", jsonData.ToString());
             var companies = jsonData!["companies"].ToObject<Company[]>();
-            var timestamp = jsonData["currentTimestamp"].ToObject<DateTime>();
+            DateTime? timestamp = null;
+            try
+            {
+                timestamp = jsonData["currentTimestamp"].ToObject<DateTime>();
+            }
+            catch (Exception ex)
+            {
+            }
             return (companies, timestamp);
         }
 
@@ -40,7 +47,14 @@ namespace Messe_Client.Handler
             jsonData = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
             File.WriteAllText("data.json", jsonData.ToString());
             var customers = jsonData!["customers"].ToObject<Customer[]>();
-            var timestamp = jsonData["currentTimestamp"].ToObject<DateTime>();
+            DateTime? timestamp = null;
+            try
+            {
+                timestamp = jsonData["currentTimestamp"].ToObject<DateTime>();
+            }
+            catch (Exception ex)
+            {
+            }
             return (customers, timestamp);
         }
 
@@ -54,7 +68,14 @@ namespace Messe_Client.Handler
             jsonData = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
             File.WriteAllText("data.json", jsonData.ToString());
             var productGroups = jsonData!["productGroups"].ToObject<ProductGroup[]>();
-            var timestamp = jsonData["currentTimestamp"].ToObject<DateTime>();
+            DateTime? timestamp = null;
+            try
+            {
+                timestamp = jsonData["currentTimestamp"].ToObject<DateTime>();
+            }
+            catch (Exception ex)
+            {
+            }
             return (productGroups, timestamp);
         }
 
