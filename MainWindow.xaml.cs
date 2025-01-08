@@ -322,12 +322,8 @@ namespace Messe_Client
 
         private async void btSubmit_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(tbFirstName.Text) ||
-                string.IsNullOrEmpty(tbLastName.Text) ||
-                string.IsNullOrEmpty(tbStreet.Text) ||
-                string.IsNullOrEmpty(tbPostalCode.Text) ||
-                string.IsNullOrEmpty(tbCity.Text) ||
-                favoriteComboBox.SelectedItem == null)
+            Company? temp = null;
+            if (checkIfEmpty())
             {
                 MessageBox.Show("Bitte füllen Sie alle Felder aus.");
                 return;
@@ -347,16 +343,21 @@ namespace Messe_Client
                     MessageBox.Show("Bitte füllen Sie alle Felder der neuen Company aus.");
                     return;
                 }
+                temp = (Company)companyComboBox.SelectedItem;
+                
             }
-            postNewCustomer(e, sender);
-            clearCutomerDataFromMainWindow();
+            postNewCustomer(e, sender, temp);
+
+           
+
+            
 
         }
-        private async void postNewCustomer(RoutedEventArgs e, object sender)
+        private async void postNewCustomer(RoutedEventArgs e, object sender, Company? customerCompany)
         {
             ProductGroup customerFavorite = (ProductGroup)favoriteComboBox.SelectedItem;
 
-            Company customerCompany = (Company)companyComboBox.SelectedItem;
+           //@Maxi check if comany schon da, sonst erstellen
 
             var httpService = new HttpService();
             var dataToPost = new Customer()
@@ -379,12 +380,14 @@ namespace Messe_Client
                 if (response.IsSuccessStatusCode)
                 {
                     MessageBox.Show("Data submitted successfully!");
+                    clearCutomerDataFromMainWindow();
                 }
                 else
                 {
                     int pendingCount = JsonHandler.setPendingCustomers(dataToPost);
                     lbPending.Content = "Pending Data: " + pendingCount;
                     MessageBox.Show("Error submitting data: " + response.ReasonPhrase);
+                    clearCutomerDataFromMainWindow();
                 }
             }
             catch (HttpRequestException ex)
@@ -401,6 +404,27 @@ namespace Messe_Client
             }
         }
 
+        private bool checkIfEmpty()
+        {
+            if (string.IsNullOrEmpty(tbFirstName.Text) ||
+                string.IsNullOrEmpty(tbLastName.Text) ||
+                string.IsNullOrEmpty(tbStreet.Text) ||
+                string.IsNullOrEmpty(tbPostalCode.Text) ||
+                string.IsNullOrEmpty(tbCity.Text) ||
+                string.IsNullOrWhiteSpace(tbFirstName.Text) ||
+                string.IsNullOrWhiteSpace(tbLastName.Text) ||
+                string.IsNullOrWhiteSpace(tbStreet.Text) ||
+                string.IsNullOrWhiteSpace(tbPostalCode.Text) ||
+                string.IsNullOrWhiteSpace(tbCity.Text) ||
+                favoriteComboBox.SelectedItem == null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         private void clearCutomerDataFromMainWindow()
         {
             tbFirstName.Text = "";
