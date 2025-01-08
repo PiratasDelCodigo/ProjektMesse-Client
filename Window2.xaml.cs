@@ -42,11 +42,19 @@ namespace Messe_Client
         {
             InitializeComponent();
             dgData.ItemsSource = data;
+
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(dgData.ItemsSource);
+            view.Filter = FilterCustomers;
+            initialized = true;
         }
         public Window2(ProductGroup[] data)
         {
             InitializeComponent();
             dgData.ItemsSource = data;
+
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(dgData.ItemsSource);
+            view.Filter = FilterProductGroups;
+            initialized = true;
         }
 
 
