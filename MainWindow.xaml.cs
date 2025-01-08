@@ -30,7 +30,7 @@ namespace Messe_Client
     {
         private loginwindow login_window;
         private bool login_window_activity_status = false;
-        private string pendingImageBase64 = "BAASD";
+        private string pendingImageBase64 = "noPicture";
         public MainWindow()
         {
             InitializeComponent();
@@ -137,6 +137,7 @@ namespace Messe_Client
             lbCAddress.Visibility = Visibility.Visible;
             tbCName.Visibility = Visibility.Visible;
             tbCAddress.Visibility = Visibility.Visible;
+            companyComboBox.SelectedItem = null;
         }
 
         private void onClickTakeImage(object sender, RoutedEventArgs e)
@@ -338,6 +339,10 @@ namespace Messe_Client
             }
             else
             {
+                if (companyComboBox.SelectedItem != null)
+                {
+                    companyComboBox.SelectedItem = null;
+                }
                 if (string.IsNullOrEmpty(tbCName.Text) || string.IsNullOrEmpty(tbCAddress.Text))
                 {
                     MessageBox.Show("Bitte füllen Sie alle Felder der neuen Company aus.");
@@ -346,12 +351,12 @@ namespace Messe_Client
                 temp = (Company)companyComboBox.SelectedItem;
                 
             }
+            if (pendingImageBase64 == "noPicture")
+            {
+                MessageBox.Show("Bitte ein Bild hinzufügen.");
+                return;
+            }
             postNewCustomer(e, sender, temp);
-
-           
-
-            
-
         }
         private async void postNewCustomer(RoutedEventArgs e, object sender, Company? customerCompany)
         {
