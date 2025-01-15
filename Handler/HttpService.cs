@@ -1,9 +1,14 @@
-﻿using System;
+﻿using Messe_Client.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Messe_Client.Handler
 {
@@ -17,6 +22,12 @@ namespace Messe_Client.Handler
         May,        // 4
         June,       // 5
         July        // 6
+    }
+
+    public class PostResult<T>
+    {
+        public HttpResponseMessage HttpResponse { get; set; }
+        public T Data { get; set; }
     }
 
     class HttpService
@@ -60,7 +71,7 @@ namespace Messe_Client.Handler
         }
 
         // POST Request
-        public async Task<HttpResponseMessage> PostAsync(string url, string jsonContent)
+        public async Task<PostResult<T>> PostAsync<T>(string url, string jsonContent)
         {
             try
             {
@@ -68,23 +79,39 @@ namespace Messe_Client.Handler
                 bool isReachable = await IsApiReachableAsync(url);
                 if (!isReachable)
                 {
-                    return new HttpResponseMessage { StatusCode = System.Net.HttpStatusCode.ServiceUnavailable };
+                    return new PostResult<T>
+                    {
+                        HttpResponse = new HttpResponseMessage(System.Net.HttpStatusCode.ServiceUnavailable)
+                    };
                 }
 
                 var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await _httpClient.PostAsync(url, content);
                 response.EnsureSuccessStatusCode();
-                return response;
+
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var createdObject = JsonConvert.DeserializeObject<T>(responseContent);
+
+                return new PostResult<T>
+                {
+                    HttpResponse = response,
+                    Data = createdObject
+                };
             }
             catch (TaskCanceledException)
             {
-                // Handles timeout scenarios
-                return new HttpResponseMessage { StatusCode = System.Net.HttpStatusCode.RequestTimeout };
+                return new PostResult<T>
+                {
+                    HttpResponse = new HttpResponseMessage(System.Net.HttpStatusCode.RequestTimeout)
+                };
             }
             catch (HttpRequestException e)
             {
                 Console.WriteLine($"An Error occurred {e.Message}");
-                return new HttpResponseMessage { StatusCode = System.Net.HttpStatusCode.InternalServerError };
+                return new PostResult<T>
+                {
+                    HttpResponse = new HttpResponseMessage(System.Net.HttpStatusCode.InternalServerError)
+                };
             }
         }
 

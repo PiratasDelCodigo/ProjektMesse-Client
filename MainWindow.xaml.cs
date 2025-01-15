@@ -364,48 +364,116 @@ namespace Messe_Client
                 temp = (Company)companyComboBox.SelectedItem;
                 
             }
-            postNewCustomer(e, sender, temp);
+            postNewCustomer(temp);
 
            
 
             
 
         }
-        private async void postNewCustomer(RoutedEventArgs e, object sender, Company? customerCompany)
+        private async void postNewCustomer(Company? customerCompany)
         {
             ProductGroup customerFavorite = (ProductGroup)favoriteComboBox.SelectedItem;
 
            //@Maxi check if comany schon da, sonst erstellen
 
             var httpService = new HttpService();
-            var dataToPost = new Customer()
+            if(customerCompany != null)
             {
-                FirstName = tbFirstName.Text,
-                LastName = tbLastName.Text,
-                Street = tbStreet.Text,
-                PostalCode = tbPostalCode.Text,
-                City = tbCity.Text,
-                Image = pendingImageBase64,
-                FavoriteId = customerFavorite.Id,
-                CompanyId = customerCompany.id
+                var dataToPost = new Customer()
+                {
+                    FirstName = tbFirstName.Text,
+                    LastName = tbLastName.Text,
+                    Street = tbStreet.Text,
+                    PostalCode = tbPostalCode.Text,
+                    City = tbCity.Text,
+                    Image = pendingImageBase64,
+                    FavoriteId = customerFavorite.Id,
+                    CompanyId = customerCompany.id
+                };
+
+                try
+                {
+                    string jsonData = JsonConvert.SerializeObject(dataToPost);
+                    var response = await httpService.PostAsync<Customer>("https://localhost:7049/api/Customer", jsonData);
+
+                    if (response.HttpResponse.IsSuccessStatusCode)
+                    {
+                        MessageBox.Show("Data submitted successfully!");
+                        clearCustomerDataFromMainWindow();
+                    }
+                    else
+                    {
+                        int pendingCount = JsonHandler.setPendingCustomers(dataToPost);
+                        lbPending.Content = "Pending Data: " + pendingCount;
+                        MessageBox.Show("Error submitting data: " + response.HttpResponse.ReasonPhrase);
+                        clearCustomerDataFromMainWindow();
+                    }
+                }
+                catch (HttpRequestException ex)
+                {
+                    MessageBox.Show("Error with POST request: " + ex.Message);
+                }
+                catch (JsonException ex)
+                {
+                    MessageBox.Show("Error serializing data: " + ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An unexpected error occurred: " + ex.Message);
+                }
+            }
+            else
+            {
+                // Handling for company creation
+                postNewCompany();
+            }
+        }
+
+        private async void postNewCompany()
+        {
+            var httpService = new HttpService();
+            var companyToPost = new Company()
+            {
+                companyName = tbCName.Text,
+                street = tbCAddress.Text,
+                city = tbCCity.Text,
+                postalCode = tbCPostalCode.Text,
+                email = tbCEMail.Text
+
             };
 
             try
             {
-                string jsonData = JsonConvert.SerializeObject(dataToPost);
-                HttpResponseMessage response = await httpService.PostAsync("https://localhost:7049/api/Customer", jsonData);
-
-                if (response.IsSuccessStatusCode)
+                string jsonData = JsonConvert.SerializeObject(companyToPost);
+                var response = await httpService.PostAsync<Company>("https://localhost:7049/api/Company", jsonData);
+                if (response.HttpResponse.IsSuccessStatusCode)
                 {
+                    var companyID = response.Data.id;
                     MessageBox.Show("Data submitted successfully!");
-                    clearCutomerDataFromMainWindow();
+                    postNewCustomer(response.Data);
                 }
                 else
                 {
-                    int pendingCount = JsonHandler.setPendingCustomers(dataToPost);
+                    ProductGroup customerFavorite = (ProductGroup)favoriteComboBox.SelectedItem;
+
+
+                    var customerToPost = new Customer()
+                    {
+                        FirstName = tbFirstName.Text,
+                        LastName = tbLastName.Text,
+                        Street = tbStreet.Text,
+                        PostalCode = tbPostalCode.Text,
+                        City = tbCity.Text,
+                        Image = pendingImageBase64,
+                        FavoriteId = customerFavorite.Id,
+                        PendingCompany = companyToPost
+                    };
+
+                    int pendingCount = JsonHandler.setPendingCustomers(customerToPost);
                     lbPending.Content = "Pending Data: " + pendingCount;
-                    MessageBox.Show("Error submitting data: " + response.ReasonPhrase);
-                    clearCutomerDataFromMainWindow();
+                    MessageBox.Show("Error submitting data: " + response.HttpResponse.ReasonPhrase);
+                    //clearCutomerDataFromMainWindow();
                 }
             }
             catch (HttpRequestException ex)
@@ -443,7 +511,7 @@ namespace Messe_Client
                 return false;
             }
         }
-        private void clearCutomerDataFromMainWindow()
+        private void clearCustomerDataFromMainWindow()
         {
             tbFirstName.Text = "";
             tbLastName.Text = "";

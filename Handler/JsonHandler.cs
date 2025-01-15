@@ -197,11 +197,43 @@ namespace Messe_Client.Handler
 
             foreach (var customer in pendingCustomers != null ? pendingCustomers : [])
             {
-                string json = JsonConvert.SerializeObject(customer);
-                HttpResponseMessage response = await httpService.PostAsync("https://localhost:7049/api/Customer", json);
-                if (response.IsSuccessStatusCode)
+                if (customer.PendingCompany != null)
                 {
-                    successCustomers.Add(customer);
+                    // Handling when there needs a company to be created
+                    string companyJson = JsonConvert.SerializeObject(customer.PendingCompany);
+                    var companyResponse = await httpService.PostAsync<Company>("https://localhost:7049/api/Company", companyJson);
+                    if (companyResponse.HttpResponse.IsSuccessStatusCode)
+                    {
+                        var companyID = companyResponse.Data.id;
+                        var customerToPost = new Customer()
+                        {
+                            FirstName = customer.FirstName,
+                            LastName = customer.LastName,
+                            City = customer.City,
+                            FavoriteId = customer.FavoriteId,
+                            PostalCode = customer.PostalCode,
+                            Street = customer.Street,
+                            Image = customer.Image,
+                            CompanyId = companyID
+   
+                        };
+                        string customerJson = JsonConvert.SerializeObject(customerToPost);
+                        var customerResponse = await httpService.PostAsync<Customer>("https://localhost:7049/api/Customer", customerJson);
+                        if (customerResponse.HttpResponse.IsSuccessStatusCode)
+                        {
+                            successCustomers.Add(customer);
+                        }
+                    }
+                }
+                else
+                {
+                    // Handling when there is no pending company
+                    string json = JsonConvert.SerializeObject(customer);
+                    var response = await httpService.PostAsync<Customer>("https://localhost:7049/api/Customer", json);
+                    if (response.HttpResponse.IsSuccessStatusCode)
+                    {
+                        successCustomers.Add(customer);
+                    }
                 }
             }   
            

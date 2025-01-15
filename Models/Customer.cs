@@ -17,5 +17,6 @@ namespace Messe_Client.Models
         public string Image { get; set; }
         public int FavoriteId { get; set; }
         public int CompanyId { get; set; }
+        public Company? PendingCompany { get; set; }
     }
 }
