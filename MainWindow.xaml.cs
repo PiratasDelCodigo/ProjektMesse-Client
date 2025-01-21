@@ -275,23 +275,28 @@ namespace Messe_Client
             { 
                 if (login_window == null)
                 {
+                    //wenn loginwindow null / nicht instanziiert
                     login_window = new loginwindow(this);
                     login_window.Show();
+                    //neue instanz des loginwindow objekts erstellt
                 }
                 else
                 {
+                    //wenn loginwindow nicht null / instanziiert
                     login_window.Close();
                     LoginHandler.login_window_activity_status = false;
                     login_window = null;
                     login_window = new loginwindow(this);
                     login_window.Show();
                     LoginHandler.login_window_activity_status = true;
+                    //loginwindow reset auf startup
                 }
                 if (login_window.IsActive == true)
                 {
+                    //loginwindow active / at startup
                     if (login_window.IsVisible == false)
                     {
-                        //Wenn Loginwindow hidden
+                        //loginwindow nicht sichtbar
                         if (LoginHandler.signed_in == false)
                         {
                             //Noch nicht eingeloggt, Loginwindow hidden
@@ -313,6 +318,7 @@ namespace Messe_Client
                 }
                 else
                 {
+                    //loginwindow active / at startup --> starup process wie oben
                     login_window.Close();
                     LoginHandler.login_window_activity_status = false;
                     login_window = null;
