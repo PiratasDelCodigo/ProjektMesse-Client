@@ -45,8 +45,8 @@ namespace Messe_Client
             tbCPostalCode.Visibility = Visibility.Hidden;
             tbCEMail.Visibility = Visibility.Hidden;
             prefetch();
-            admin_TabItem.Visibility = Visibility.Visible;
-            Handler.LoginHandler.login_window_activity_status = false;
+            admin_TabItem.Visibility = Visibility.Hidden;
+            Handler.LoginHandler.login_window_activity_status = true;
         }
 
         private async Task refresh()
